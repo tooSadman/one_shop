@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:project_f/Pages/HomePage.dart';
 import 'package:project_f/main.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -18,6 +20,7 @@ class LoginPageState extends State<StatefulWidget> {
   Widget build(BuildContext context) {
     return new Material(
       color: Colors.blue,
+      //TODO add COLUMN from tutorial
       child: new Container(
         child: new Column(
           children: <Widget>[
@@ -33,13 +36,26 @@ class LoginPageState extends State<StatefulWidget> {
               ),),
             new Center(
               //TODO creat class for button
-              child: new CupertinoButton(
-                  child: new Text("Увійти через Google"),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    new CupertinoButton(
+                        child: new Text("Увійти через Google"),
 
-                  color: Colors.greenAccent,
-                  pressedOpacity: 0.5,
-                  onPressed: _onClickGoogleAuth
-              ),
+                        color: Colors.greenAccent,
+                        pressedOpacity: 0.5,
+                        onPressed: _onClickGoogleAuth
+                    ),
+                    new CupertinoButton(
+                        child: new Text("Увійти через Facebook"),
+
+                        color: Colors.blueAccent,
+                        pressedOpacity: 0.5,
+                        onPressed: _onClickFacebookAuth
+                    ),
+                  ],
+                )
             ),
             new Padding(
                 padding: new EdgeInsets.only(bottom: 120.0),
@@ -70,13 +86,37 @@ class LoginPageState extends State<StatefulWidget> {
       //TODO add analytics analytics.logLogin();
     }
     if (await auth.currentUser() == null) { //new
-      GoogleSignInAuthentication credentials = //new
-      await googleSignIn.currentUser.authentication; //new
-      await auth.signInWithGoogle( //new
+      GoogleSignInAuthentication credentials = await googleSignIn.currentUser.authentication;
+      firebaseUser = await auth.signInWithGoogle( //new
         idToken: credentials.idToken, //new
         accessToken: credentials.accessToken, //new
       );
-      
+      Navigator.of(context).push(new MaterialPageRoute(
+          builder: (BuildContext context) => new HomePage()));
+    }
+    Navigator.of(context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => new HomePage()));
+  }
+
+  Future _onClickFacebookAuth() async {
+    firebaseUser = await auth.currentUser();
+
+    final FacebookLoginResult result =
+        await facebookSignIn.logInWithReadPermissions(['email']);
+
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        final FacebookAccessToken accessToken = result.accessToken;
+          firebaseUser = await auth.signInWithFacebook(accessToken: result.accessToken.token);
+          debugPrint(firebaseUser.email);
+        break;
+      case FacebookLoginStatus.cancelledByUser:
+        debugPrint('Login cancelled by the user.');
+        break;
+      case FacebookLoginStatus.error:
+        debugPrint('Something went wrong with the login process.\n'
+            'Here\'s the error Facebook gave us: ${result.errorMessage}');
+        break;
     }
   }
 }
