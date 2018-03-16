@@ -1,7 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project_f/Pages/HomePage.dart';
+import 'package:project_f/Pages/LoginPage.dart';
 
-void main() => runApp(new MyApp());
+final auth = FirebaseAuth.instance;
+final googleSignIn = new GoogleSignIn();
+
+void main() => runApp(
+    new MyApp()
+);
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -14,7 +22,7 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: new HomePage(),
+      home: new LoginPage(),
 
     );
   }
