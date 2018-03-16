@@ -1,0 +1,130 @@
+{
+  "project_info": {
+    "project_number": "73281392513",
+    "firebase_url": "https://oneclickshop-lviv.firebaseio.com",
+    "project_id": "oneclickshop-lviv",
+    "storage_bucket": "oneclickshop-lviv.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73281392513:android:b793489b61bec25c",
+        "android_client_info": {
+          "package_name": "teamd.projectd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "73281392513-1ncne8qfur5a566i96mdcl83em2vqd3v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "teamd.projectd",
+            "certificate_hash": "25ac5ab475649f8ba88e2dc4d0b3c53ab5b5548e"
+          }
+        },
+        {
+          "client_id": "73281392513-iqh3mk3t5f4j3rf1rea4a3qi37qehq0h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOvL3wKjiji_5dQKwDDeC8B2ghhixrInY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "73281392513-iqh3mk3t5f4j3rf1rea4a3qi37qehq0h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73281392513:android:e3127a72693d6edb",
+        "android_client_info": {
+          "package_name": "teamd.flutterdelete"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "73281392513-iqh3mk3t5f4j3rf1rea4a3qi37qehq0h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOvL3wKjiji_5dQKwDDeC8B2ghhixrInY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73281392513:android:2d17dd809651bc82",
+        "android_client_info": {
+          "package_name": "teamd.projectf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "73281392513-kn2heum352r3u0cevfvl0r4pkmev16td.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "teamd.projectf",
+            "certificate_hash": "25ac5ab475649f8ba88e2dc4d0b3c53ab5b5548e"
+          }
+        },
+        {
+          "client_id": "73281392513-iqh3mk3t5f4j3rf1rea4a3qi37qehq0h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOvL3wKjiji_5dQKwDDeC8B2ghhixrInY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "73281392513-iqh3mk3t5f4j3rf1rea4a3qi37qehq0h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
