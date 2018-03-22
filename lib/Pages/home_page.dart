@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   IconData _icon = Icons.email;
   int _currentIndex = 0;
-  BottomNavigationBarType _type = BottomNavigationBarType.fixed;
+  BottomNavigationBarType _type = BottomNavigationBarType.shifting;
   List<NavigationIconView> _navigationViews;
 
   @override
@@ -91,32 +91,32 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _navigationViews = <NavigationIconView>[
       new NavigationIconView(
         icon: const Icon(Icons.store_mall_directory),
-        title: 'Alarm',
-        color: Colors.deepPurple,
+        title: 'Home',
+        color: Colors.black,
         vsync: this,
       ),
       new NavigationIconView(
         icon: new Icon(Icons.search),
-        title: 'Box',
-        color: Colors.deepOrange,
+        title: 'Search',
+        color: Colors.black,
         vsync: this,
       ),
       new NavigationIconView(
         icon: const Icon(Icons.shopping_cart),
-        title: 'Cloud',
-        color: Colors.teal,
+        title: 'Cart',
+        color: Colors.black,
         vsync: this,
       ),
       new NavigationIconView(
         icon: const Icon(Icons.collections_bookmark),
-        title: 'Favorites',
-        color: Colors.indigo,
+        title: 'Boxes',
+        color: Colors.black,
         vsync: this,
       ),
       new NavigationIconView(
         icon: const Icon(Icons.person),
-        title: 'Event',
-        color: Colors.pink,
+        title: 'Profile',
+        color: Colors.black,
         vsync: this,
       )
     ];
