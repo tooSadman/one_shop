@@ -19,60 +19,63 @@ class LoginPageState extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return new Material(
-      color: Colors.blue,
-      //TODO add COLUMN from tutorial
-      child: new Container(
-        child: new Column(
-          children: <Widget>[
-            new Padding(
-              padding: new EdgeInsets.only(top: 100.0, bottom: 20.0),
-              child: new Text(
-                "ONE:SHOP", textAlign: TextAlign.center,
-                style: new TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40.0
-                ),
-              ),),
-            new Center(
-              //TODO creat class for button
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    new CupertinoButton(
-                        child: new Text("Увійти через Google"),
+        child: new Container(
+              decoration: new BoxDecoration(
+                image: new DecorationImage(image: new AssetImage('images/login.png'))
+              ),
 
-                        color: Colors.greenAccent,
-                        pressedOpacity: 0.5,
-                        onPressed: _onClickGoogleAuth
-                    ),
-                    new CupertinoButton(
-                        child: new Text("Увійти через Facebook"),
+              child: new Column(
+                children: <Widget>[
+                  new Padding(
+                    padding: new EdgeInsets.only(top: 100.0, bottom: 20.0),
+                    child: new Text(
+                      "ONE:SHOP", textAlign: TextAlign.center,
+                      style: new TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 40.0
+                      ),
+                    ),),
+                  new Center(
+                    //TODO creat class for button
+                      child: new Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          new CupertinoButton(
+                              child: new Text("Увійти через Google"),
 
-                        color: Colors.blueAccent,
-                        pressedOpacity: 0.5,
-                        onPressed: _onClickFacebookAuth
-                    ),
-                  ],
-                )
-            ),
-            new Padding(
-                padding: new EdgeInsets.only(bottom: 120.0),
-                child: new Text("Це на 100% безпечніше ніж орігамі!",
-                  style: new TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.0
+                              color: Colors.greenAccent,
+                              pressedOpacity: 0.5,
+                              onPressed: _onClickGoogleAuth
+                          ),
+                          new CupertinoButton(
+                              child: new Text("Увійти через Facebook"),
+
+                              color: Colors.blueAccent,
+                              pressedOpacity: 0.5,
+                              onPressed: _onClickFacebookAuth
+                          ),
+                        ],
+                      )
                   ),
-                )
-            ),
-            new Container(
+                  new Padding(
+                      padding: new EdgeInsets.only(bottom: 120.0),
+                      child: new Text("Це на 100% безпечніше ніж орігамі!",
+                        style: new TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.0
+                        ),
+                      )
+                  ),
 
-            )
+                ],
+              ),
 
-          ],
+
+
+
         ),
-      ),
     );
   }
 
@@ -86,7 +89,8 @@ class LoginPageState extends State<StatefulWidget> {
       //TODO add analytics analytics.logLogin();
     }
     if (await auth.currentUser() == null) { //new
-      GoogleSignInAuthentication credentials = await googleSignIn.currentUser.authentication;
+      GoogleSignInAuthentication credentials = await googleSignIn.currentUser
+          .authentication;
       firebaseUser = await auth.signInWithGoogle( //new
         idToken: credentials.idToken, //new
         accessToken: credentials.accessToken, //new
@@ -102,13 +106,14 @@ class LoginPageState extends State<StatefulWidget> {
     firebaseUser = await auth.currentUser();
 
     final FacebookLoginResult result =
-        await facebookSignIn.logInWithReadPermissions(['email']);
+    await facebookSignIn.logInWithReadPermissions(['email']);
 
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
         final FacebookAccessToken accessToken = result.accessToken;
-          firebaseUser = await auth.signInWithFacebook(accessToken: result.accessToken.token);
-          debugPrint(firebaseUser.email);
+        firebaseUser =
+        await auth.signInWithFacebook(accessToken: result.accessToken.token);
+        debugPrint(firebaseUser.email);
         break;
       case FacebookLoginStatus.cancelledByUser:
         debugPrint('Login cancelled by the user.');
