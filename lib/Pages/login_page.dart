@@ -2,7 +2,8 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:project_f/Pages/home_page.dart';
+import 'package:project_f/Pages/HomePage.dart';
+import 'package:project_f/UI/login_button.dart';
 import 'package:project_f/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -19,13 +20,16 @@ class LoginPageState extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return new Material(
-      color: Colors.blue,
-      //TODO add COLUMN from tutorial
       child: new Container(
+        decoration: new BoxDecoration(
+            image: new DecorationImage(
+                image: new AssetImage('images/login.png'))
+        ),
+
         child: new Column(
           children: <Widget>[
             new Padding(
-              padding: new EdgeInsets.only(top: 100.0, bottom: 20.0),
+              padding: new EdgeInsets.only(top: 100.0, bottom: 10.0),
               child: new Text(
                 "ONE:SHOP", textAlign: TextAlign.center,
                 style: new TextStyle(
@@ -33,32 +37,110 @@ class LoginPageState extends State<StatefulWidget> {
                     fontWeight: FontWeight.bold,
                     fontSize: 40.0
                 ),
-              ),),
+              ),
+            ),
+            new Padding(
+              padding: new EdgeInsets.only(left: 4.0, right: 4.0, bottom: 45.0),
+              child: new Column(
+                children: <Widget>[
+                  new Text("Привіт! Почнімо?",
+                    style: new TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.5
+                    ),
+                  ),
+                  new Text("Заходь до нас через свій улюблений сервіс.",
+                    style: new TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.5
+                    ),
+                  )
+                ],
+              ),
+            ),
             new Center(
               //TODO creat class for button
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    new CupertinoButton(
-                        child: new Text("Увійти через Google"),
+                    new Padding(
+                      padding: new EdgeInsets.only(left: 32.0, right: 32.0, bottom: 15.0),
+                      child: new CupertinoButton(
+                          padding: new EdgeInsets.only(
+                              left: 16.0, bottom: 16.0, top: 16.0),
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Image.asset('images/instagram.png'),
 
-                        color: Colors.greenAccent,
-                        pressedOpacity: 0.5,
-                        onPressed: _onClickGoogleAuth
+                              new Expanded(child: new Text(
+                                "Увійти через Instagram",
+                                textAlign: TextAlign.center,
+                                style: new TextStyle(color: new Color.fromRGBO(
+                                    162, 42, 132, 1.0)),
+                              ))
+                            ],
+                          ),
+                          color: Colors.white,
+                          pressedOpacity: 0.5,
+                          onPressed: _onClickFacebookAuth
+                      ),
                     ),
-                    new CupertinoButton(
-                        child: new Text("Увійти через Facebook"),
+                    new Padding(
+                      padding: new EdgeInsets.only(left: 32.0, right: 32.0, bottom: 15.0),
+                      child: new CupertinoButton(
+                          padding: new EdgeInsets.only(
+                              left: 16.0, bottom: 16.0, top: 16.0),
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Image.asset('images/facebook.png'),
 
-                        color: Colors.blueAccent,
-                        pressedOpacity: 0.5,
-                        onPressed: _onClickFacebookAuth
+                              new Expanded(child: new Text(
+                                "Увійти через Facebook",
+                                textAlign: TextAlign.center,
+                                style: new TextStyle(color: Colors.white),
+                              ))
+                            ],
+                          ),
+                          color: new Color.fromRGBO(10, 97, 176, 1.0),
+                          pressedOpacity: 0.5,
+                          onPressed: _onClickFacebookAuth
+                      ),
                     ),
+                    new Padding(
+                      padding: new EdgeInsets.only(left: 32.0, right: 32.0, bottom: 15.0),
+                      child: new CupertinoButton(
+                          padding: new EdgeInsets.only(
+                              left: 16.0, bottom: 16.0, top: 16.0),
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Image.asset('images/google_plus.png'),
+
+                              new Expanded(child: new Text(
+                                "Увійти через Google",
+                                textAlign: TextAlign.center,
+                                style: new TextStyle(color: Colors.white),
+                              ))
+                            ],
+                          ),
+                          color: new Color.fromRGBO(232, 61, 40, 1.0),
+                          pressedOpacity: 0.5,
+                          onPressed: _onClickGoogleAuth
+                      ),
+                    ),
+
                   ],
                 )
             ),
             new Padding(
-                padding: new EdgeInsets.only(bottom: 120.0),
+                padding: new EdgeInsets.only(top: 120.0),
+
                 child: new Text("Це на 100% безпечніше ніж орігамі!",
                   style: new TextStyle(
                       color: Colors.white,
@@ -66,12 +148,11 @@ class LoginPageState extends State<StatefulWidget> {
                   ),
                 )
             ),
-            new Container(
-
-            )
 
           ],
         ),
+
+
       ),
     );
   }
@@ -86,7 +167,8 @@ class LoginPageState extends State<StatefulWidget> {
       //TODO add analytics analytics.logLogin();
     }
     if (await auth.currentUser() == null) { //new
-      GoogleSignInAuthentication credentials = await googleSignIn.currentUser.authentication;
+      GoogleSignInAuthentication credentials = await googleSignIn.currentUser
+          .authentication;
       firebaseUser = await auth.signInWithGoogle( //new
         idToken: credentials.idToken, //new
         accessToken: credentials.accessToken, //new
@@ -102,13 +184,14 @@ class LoginPageState extends State<StatefulWidget> {
     firebaseUser = await auth.currentUser();
 
     final FacebookLoginResult result =
-        await facebookSignIn.logInWithReadPermissions(['email']);
+    await facebookSignIn.logInWithReadPermissions(['email']);
 
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
         final FacebookAccessToken accessToken = result.accessToken;
-          firebaseUser = await auth.signInWithFacebook(accessToken: result.accessToken.token);
-          debugPrint(firebaseUser.email);
+        firebaseUser =
+        await auth.signInWithFacebook(accessToken: result.accessToken.token);
+        debugPrint(firebaseUser.email);
         break;
       case FacebookLoginStatus.cancelledByUser:
         debugPrint('Login cancelled by the user.');
