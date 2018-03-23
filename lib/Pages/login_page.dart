@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:project_f/Pages/HomePage.dart';
+import 'package:project_f/Pages/home_page.dart';
 import 'package:project_f/UI/login_button.dart';
 import 'package:project_f/main.dart';
 import 'package:flutter/cupertino.dart';
