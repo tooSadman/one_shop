@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project_f/Pages/home_page.dart';
-import 'package:project_f/UI/login_button.dart';
 import 'package:project_f/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -23,7 +22,9 @@ class LoginPageState extends State<StatefulWidget> {
       child: new Container(
         decoration: new BoxDecoration(
             image: new DecorationImage(
-                image: new AssetImage('images/login.png'))
+              image: new AssetImage('images/login.png'),
+              fit: BoxFit.cover,
+            )
         ),
 
         child: new Column(
@@ -65,7 +66,8 @@ class LoginPageState extends State<StatefulWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     new Padding(
-                      padding: new EdgeInsets.only(left: 32.0, right: 32.0, bottom: 15.0),
+                      padding: new EdgeInsets.only(
+                          left: 32.0, right: 32.0, bottom: 15.0),
                       child: new CupertinoButton(
                           padding: new EdgeInsets.only(
                               left: 16.0, bottom: 16.0, top: 16.0),
@@ -89,7 +91,8 @@ class LoginPageState extends State<StatefulWidget> {
                       ),
                     ),
                     new Padding(
-                      padding: new EdgeInsets.only(left: 32.0, right: 32.0, bottom: 15.0),
+                      padding: new EdgeInsets.only(
+                          left: 32.0, right: 32.0, bottom: 15.0),
                       child: new CupertinoButton(
                           padding: new EdgeInsets.only(
                               left: 16.0, bottom: 16.0, top: 16.0),
@@ -112,7 +115,8 @@ class LoginPageState extends State<StatefulWidget> {
                       ),
                     ),
                     new Padding(
-                      padding: new EdgeInsets.only(left: 32.0, right: 32.0, bottom: 15.0),
+                      padding: new EdgeInsets.only(
+                          left: 32.0, right: 32.0, bottom: 15.0),
                       child: new CupertinoButton(
                           padding: new EdgeInsets.only(
                               left: 16.0, bottom: 16.0, top: 16.0),

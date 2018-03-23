@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project_f/Pages/home_pages/boxes_page.dart';
 import 'package:project_f/Pages/home_pages/list_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -84,6 +85,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int _currentIndex = 0;
   BottomNavigationBarType _type = BottomNavigationBarType.shifting;
   List<NavigationIconView> _navigationViews;
+  Widget _homeWidget = new ListPage();
 
   @override
   void initState() {
@@ -152,6 +154,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           _navigationViews[_currentIndex].controller.reverse();
           _currentIndex = index;
           _navigationViews[_currentIndex].controller.forward();
+          switch (index) {
+            case 0:
+              _homeWidget = new ListPage();
+              break;
+            case 3:
+              _homeWidget = new BoxesPage();
+              break;
+          }
         });
       },
     );
@@ -159,10 +169,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     return new Scaffold(
       appBar: null,
-      body: new Center(
-
-        child: new ListPage(),
-      ),
+      body: _homeWidget,
       bottomNavigationBar: botNavBar,
     );
   }
