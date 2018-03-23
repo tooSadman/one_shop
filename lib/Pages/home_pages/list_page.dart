@@ -59,6 +59,7 @@ class ListPageState extends State<StatefulWidget> {
                   child: new StaggeredGridView.countBuilder(
                     crossAxisCount: 4,
                     itemCount: 8,
+                    padding: new EdgeInsets.all(8.0),
                     itemBuilder: (BuildContext context, int index) =>
                     new Container(
                         decoration: new BoxDecoration(
@@ -69,8 +70,6 @@ class ListPageState extends State<StatefulWidget> {
                           ),
                           color: Colors.black45
                         ),
-                        margin: new EdgeInsets.only(left: index.isEven ? 4.0 : 0.0,
-                        right: index.isEven ? 0.0 : 4.0),
                         child: new Center(
                           child: new CircleAvatar(
                             backgroundColor: Colors.white,
@@ -80,8 +79,8 @@ class ListPageState extends State<StatefulWidget> {
                     ),
                     staggeredTileBuilder: (int index) =>
                     new StaggeredTile.count(2, 3),
-                    mainAxisSpacing: 6.0,
-                    crossAxisSpacing: 6.0,
+                    mainAxisSpacing: 8.0,
+                    crossAxisSpacing: 8.0,
                   )
               )
           ),
