@@ -1,0 +1,205 @@
+import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:project_f/Pages/home_page.dart';
+import 'package:project_f/UI/login_button.dart';
+import 'package:project_f/main.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+
+class LoginPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return new LoginPageState();
+  }
+
+}
+
+class LoginPageState extends State<StatefulWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return new Material(
+      child: new Container(
+        decoration: new BoxDecoration(
+            image: new DecorationImage(
+                image: new AssetImage('images/login.png'))
+        ),
+
+        child: new Column(
+          children: <Widget>[
+            new Padding(
+              padding: new EdgeInsets.only(top: 100.0, bottom: 10.0),
+              child: new Text(
+                "ONE:SHOP", textAlign: TextAlign.center,
+                style: new TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 40.0
+                ),
+              ),
+            ),
+            new Padding(
+              padding: new EdgeInsets.only(left: 4.0, right: 4.0, bottom: 45.0),
+              child: new Column(
+                children: <Widget>[
+                  new Text("Привіт! Почнімо?",
+                    style: new TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.5
+                    ),
+                  ),
+                  new Text("Заходь до нас через свій улюблений сервіс.",
+                    style: new TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.5
+                    ),
+                  )
+                ],
+              ),
+            ),
+            new Center(
+              //TODO creat class for button
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    new Padding(
+                      padding: new EdgeInsets.only(left: 32.0, right: 32.0, bottom: 15.0),
+                      child: new CupertinoButton(
+                          padding: new EdgeInsets.only(
+                              left: 16.0, bottom: 16.0, top: 16.0),
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Image.asset('images/instagram.png'),
+
+                              new Expanded(child: new Text(
+                                "Увійти через Instagram",
+                                textAlign: TextAlign.center,
+                                style: new TextStyle(color: new Color.fromRGBO(
+                                    162, 42, 132, 1.0)),
+                              ))
+                            ],
+                          ),
+                          color: Colors.white,
+                          pressedOpacity: 0.5,
+                          onPressed: _onClickFacebookAuth
+                      ),
+                    ),
+                    new Padding(
+                      padding: new EdgeInsets.only(left: 32.0, right: 32.0, bottom: 15.0),
+                      child: new CupertinoButton(
+                          padding: new EdgeInsets.only(
+                              left: 16.0, bottom: 16.0, top: 16.0),
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Image.asset('images/facebook.png'),
+
+                              new Expanded(child: new Text(
+                                "Увійти через Facebook",
+                                textAlign: TextAlign.center,
+                                style: new TextStyle(color: Colors.white),
+                              ))
+                            ],
+                          ),
+                          color: new Color.fromRGBO(10, 97, 176, 1.0),
+                          pressedOpacity: 0.5,
+                          onPressed: _onClickFacebookAuth
+                      ),
+                    ),
+                    new Padding(
+                      padding: new EdgeInsets.only(left: 32.0, right: 32.0, bottom: 15.0),
+                      child: new CupertinoButton(
+                          padding: new EdgeInsets.only(
+                              left: 16.0, bottom: 16.0, top: 16.0),
+                          child: new Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Image.asset('images/google_plus.png'),
+
+                              new Expanded(child: new Text(
+                                "Увійти через Google",
+                                textAlign: TextAlign.center,
+                                style: new TextStyle(color: Colors.white),
+                              ))
+                            ],
+                          ),
+                          color: new Color.fromRGBO(232, 61, 40, 1.0),
+                          pressedOpacity: 0.5,
+                          onPressed: _onClickGoogleAuth
+                      ),
+                    ),
+
+                  ],
+                )
+            ),
+            new Padding(
+                padding: new EdgeInsets.only(top: 120.0),
+
+                child: new Text("Це на 100% безпечніше ніж орігамі!",
+                  style: new TextStyle(
+                      color: Colors.white,
+                      fontSize: 15.0
+                  ),
+                )
+            ),
+
+          ],
+        ),
+
+
+      ),
+    );
+  }
+
+
+  Future _onClickGoogleAuth() async {
+    GoogleSignInAccount user = googleSignIn.currentUser;
+    if (user == null)
+      user = await googleSignIn.signInSilently();
+    if (user == null) {
+      await googleSignIn.signIn();
+      //TODO add analytics analytics.logLogin();
+    }
+    if (await auth.currentUser() == null) { //new
+      GoogleSignInAuthentication credentials = await googleSignIn.currentUser
+          .authentication;
+      firebaseUser = await auth.signInWithGoogle( //new
+        idToken: credentials.idToken, //new
+        accessToken: credentials.accessToken, //new
+      );
+      Navigator.of(context).push(new MaterialPageRoute(
+          builder: (BuildContext context) => new HomePage()));
+    }
+    Navigator.of(context).push(new MaterialPageRoute(
+        builder: (BuildContext context) => new HomePage()));
+  }
+
+  Future _onClickFacebookAuth() async {
+    firebaseUser = await auth.currentUser();
+
+    final FacebookLoginResult result =
+    await facebookSignIn.logInWithReadPermissions(['email']);
+
+    switch (result.status) {
+      case FacebookLoginStatus.loggedIn:
+        final FacebookAccessToken accessToken = result.accessToken;
+        firebaseUser =
+        await auth.signInWithFacebook(accessToken: result.accessToken.token);
+        debugPrint(firebaseUser.email);
+        break;
+      case FacebookLoginStatus.cancelledByUser:
+        debugPrint('Login cancelled by the user.');
+        break;
+      case FacebookLoginStatus.error:
+        debugPrint('Something went wrong with the login process.\n'
+            'Here\'s the error Facebook gave us: ${result.errorMessage}');
+        break;
+    }
+  }
+}
