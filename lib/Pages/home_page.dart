@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
 // This widget is the home page of your application. It is stateful, meaning
 // that it has a State object (defined below) that contains fields that affect
 // how it looks.
+  static final homePageScaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   _HomePageState createState() => new _HomePageState();
@@ -81,11 +82,14 @@ class NavigationIconView {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
+  static ListPage _list_page = new ListPage();
+  static BoxesPage _boxes_page = new BoxesPage();
+
   IconData _icon = Icons.email;
   int _currentIndex = 0;
   BottomNavigationBarType _type = BottomNavigationBarType.shifting;
   List<NavigationIconView> _navigationViews;
-  Widget _homeWidget = new ListPage();
+  Widget _homeWidget = _list_page;
 
   @override
   void initState() {
@@ -156,10 +160,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           _navigationViews[_currentIndex].controller.forward();
           switch (index) {
             case 0:
-              _homeWidget = new ListPage();
+              _homeWidget = _list_page;
               break;
             case 3:
-              _homeWidget = new BoxesPage();
+              _homeWidget = _boxes_page;
               break;
           }
         });
@@ -168,6 +172,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
 
     return new Scaffold(
+      key: HomePage.homePageScaffoldKey,
       appBar: null,
       body: _homeWidget,
       bottomNavigationBar: botNavBar,

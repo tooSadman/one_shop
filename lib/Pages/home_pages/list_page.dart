@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_f/Pages/home_page.dart';
 
 class ListPage extends StatefulWidget {
 
@@ -15,6 +16,7 @@ class ListPage extends StatefulWidget {
 }
 
 class ListPageState extends State<StatefulWidget> {
+
   @override
   Widget build(BuildContext context) {
     return new Column(
@@ -61,21 +63,30 @@ class ListPageState extends State<StatefulWidget> {
                     itemCount: 8,
                     padding: new EdgeInsets.all(8.0),
                     itemBuilder: (BuildContext context, int index) =>
-                    new Container(
-                        decoration: new BoxDecoration(
-                          borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
-                          border: new Border.all(
-                            color: Colors.grey,
-                            width: 1.0
+
+                    new GestureDetector(
+                      child: new Container(
+                          decoration: new BoxDecoration(
+                              borderRadius: new BorderRadius.all(
+                                  new Radius.circular(10.0)),
+                              border: new Border.all(
+                                  color: Colors.grey,
+                                  width: 1.0
+                              ),
+                              color: Colors.black45
                           ),
-                          color: Colors.black45
-                        ),
-                        child: new Center(
-                          child: new CircleAvatar(
-                            backgroundColor: Colors.white,
-                            child: new Text('1'),
-                          ),
-                        )
+                          child: new Center(
+                            child: new CircleAvatar(
+                              backgroundColor: Colors.white,
+                              child: new Text('1'),
+                            ),
+                          )
+                      ),
+                      onTap: () {
+                        HomePage.homePageScaffoldKey.currentState.showSnackBar(new SnackBar(
+                          content: new Text("I`m hardly developing back-end. Keep calm)"),
+                        ));
+                      },
                     ),
                     staggeredTileBuilder: (int index) =>
                     new StaggeredTile.count(2, 3),
