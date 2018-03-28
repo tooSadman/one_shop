@@ -16,10 +16,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<StatefulWidget> {
+
+  final key = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
-    return new Material(
-      child: new Container(
+    return new Scaffold(
+      key: key,
+      body: new Container(
         decoration: new BoxDecoration(
             image: new DecorationImage(
               image: new AssetImage('images/login.png'),
@@ -60,7 +64,6 @@ class LoginPageState extends State<StatefulWidget> {
               ),
             ),
             new Center(
-              //TODO creat class for button
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,7 +90,12 @@ class LoginPageState extends State<StatefulWidget> {
                           ),
                           color: Colors.white,
                           pressedOpacity: 0.5,
-                          onPressed: _onClickFacebookAuth
+                          onPressed: () {
+                            key.currentState.showSnackBar(new SnackBar(
+                              content: new Text(
+                                  "This feature in develop"),
+                            ));
+                          },
                       ),
                     ),
                     new Padding(
@@ -111,7 +119,12 @@ class LoginPageState extends State<StatefulWidget> {
                           ),
                           color: new Color.fromRGBO(10, 97, 176, 1.0),
                           pressedOpacity: 0.5,
-                          onPressed: _onClickFacebookAuth
+                          onPressed:  () {
+                            key.currentState.showSnackBar(new SnackBar(
+                              content: new Text("I'm fixing bug with facebook :) Try Google"),
+                            ));
+                          },
+//                          _onClickFacebookAuth
                       ),
                     ),
                     new Padding(
@@ -206,4 +219,11 @@ class LoginPageState extends State<StatefulWidget> {
         break;
     }
   }
+
+  void _showInDevelopToast() {
+    Scaffold.of(context).showSnackBar(new SnackBar(
+      content: new Text("Sending Message"),
+    ));
+  }
+
 }
