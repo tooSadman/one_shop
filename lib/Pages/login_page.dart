@@ -7,6 +7,10 @@ import 'package:project_f/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
+///
+/// Create by Nikita Kiselov
+///
+
 class LoginPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -101,6 +105,7 @@ class LoginPageState extends State<StatefulWidget> {
                     new Padding(
                       padding: new EdgeInsets.only(
                           left: 32.0, right: 32.0, bottom: 15.0),
+                      //TODO add button to UI
                       child: new CupertinoButton(
                           padding: new EdgeInsets.only(
                               left: 16.0, bottom: 16.0, top: 16.0),

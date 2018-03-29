@@ -5,6 +5,10 @@ import 'package:project_f/Pages/home_pages/boxes_page.dart';
 import 'package:project_f/Pages/home_pages/list_page.dart';
 import 'package:project_f/Pages/home_pages/profile_page.dart';
 
+///
+/// Create by Nikita Kiselov
+///
+
 class HomePage extends StatefulWidget {
 
 // This widget is the home page of your application. It is stateful, meaning
