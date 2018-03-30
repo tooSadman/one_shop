@@ -12,6 +12,7 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 ///
 
 class LoginPage extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() {
     return new LoginPageState();
@@ -125,11 +126,7 @@ class LoginPageState extends State<StatefulWidget> {
                           ),
                           color: new Color.fromRGBO(10, 97, 176, 1.0),
                           pressedOpacity: 0.5,
-                          onPressed:  () {
-                            Scaffold.of(context).showSnackBar(new SnackBar(
-                              content: new Text("I'm fixing bug with facebook :) Try Google"),
-                            ));
-                          },
+                          onPressed:  _onClickFacebookAuth,
 //                          _onClickFacebookAuth
                         ),
                       ),
@@ -208,7 +205,7 @@ class LoginPageState extends State<StatefulWidget> {
   Future _onClickFacebookAuth() async {
     firebaseUser = await auth.currentUser();
 
-    final FacebookLoginResult result =
+    final result =
     await facebookSignIn.logInWithReadPermissions(['email']);
 
     switch (result.status) {
@@ -217,6 +214,8 @@ class LoginPageState extends State<StatefulWidget> {
         firebaseUser =
         await auth.signInWithFacebook(accessToken: result.accessToken.token);
         debugPrint(firebaseUser.email);
+        Navigator.of(context).push(new MaterialPageRoute(
+            builder: (BuildContext context) => new HomePage()));
         break;
       case FacebookLoginStatus.cancelledByUser:
         debugPrint('Login cancelled by the user.');
