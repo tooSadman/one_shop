@@ -7,6 +7,10 @@ import 'package:project_f/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 
+///
+/// Create by Nikita Kiselov
+///
+
 class LoginPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -17,12 +21,9 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<StatefulWidget> {
 
-  final key = new GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      key: key,
       body: new Container(
         decoration: new BoxDecoration(
             image: new DecorationImage(
@@ -31,47 +32,51 @@ class LoginPageState extends State<StatefulWidget> {
             )
         ),
 
-        child: new Column(
-          children: <Widget>[
-            new Padding(
-              padding: new EdgeInsets.only(top: 100.0, bottom: 10.0),
-              child: new Text(
-                "ONE:SHOP", textAlign: TextAlign.center,
-                style: new TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40.0
+        /// Here I`m using builder for context. Its neede to build Toasts.
+          /// So in release it's need to refactor
+          //TODO decide what to do with builder
+        child: new Builder(builder: (BuildContext context) {
+          return new Column(
+            children: <Widget>[
+              new Padding(
+                padding: new EdgeInsets.only(top: 100.0, bottom: 10.0),
+                child: new Text(
+                  "ONE:SHOP", textAlign: TextAlign.center,
+                  style: new TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40.0
+                  ),
                 ),
               ),
-            ),
-            new Padding(
-              padding: new EdgeInsets.only(left: 4.0, right: 4.0, bottom: 45.0),
-              child: new Column(
-                children: <Widget>[
-                  new Text("Привіт! Почнімо?",
-                    style: new TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.5
-                    ),
-                  ),
-                  new Text("Заходь до нас через свій улюблений сервіс.",
-                    style: new TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.5
-                    ),
-                  )
-                ],
-              ),
-            ),
-            new Center(
+              new Padding(
+                padding: new EdgeInsets.only(left: 4.0, right: 4.0, bottom: 45.0),
                 child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    new Padding(
-                      padding: new EdgeInsets.only(
-                          left: 32.0, right: 32.0, bottom: 15.0),
-                      child: new CupertinoButton(
+                    new Text("Привіт! Почнімо?",
+                      style: new TextStyle(
+                          color: Colors.white,
+                          fontSize: 15.5
+                      ),
+                    ),
+                    new Text("Заходь до нас через свій улюблений сервіс.",
+                      style: new TextStyle(
+                          color: Colors.white,
+                          fontSize: 15.5
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              new Center(
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      new Padding(
+                        padding: new EdgeInsets.only(
+                            left: 32.0, right: 32.0, bottom: 15.0),
+                        child: new CupertinoButton(
                           padding: new EdgeInsets.only(
                               left: 16.0, bottom: 16.0, top: 16.0),
                           child: new Row(
@@ -91,17 +96,18 @@ class LoginPageState extends State<StatefulWidget> {
                           color: Colors.white,
                           pressedOpacity: 0.5,
                           onPressed: () {
-                            key.currentState.showSnackBar(new SnackBar(
+                            Scaffold.of(context).showSnackBar(new SnackBar(
                               content: new Text(
                                   "This feature in develop"),
                             ));
                           },
+                        ),
                       ),
-                    ),
-                    new Padding(
-                      padding: new EdgeInsets.only(
-                          left: 32.0, right: 32.0, bottom: 15.0),
-                      child: new CupertinoButton(
+                      new Padding(
+                        padding: new EdgeInsets.only(
+                            left: 32.0, right: 32.0, bottom: 15.0),
+                        //TODO add button to UI
+                        child: new CupertinoButton(
                           padding: new EdgeInsets.only(
                               left: 16.0, bottom: 16.0, top: 16.0),
                           child: new Row(
@@ -120,54 +126,56 @@ class LoginPageState extends State<StatefulWidget> {
                           color: new Color.fromRGBO(10, 97, 176, 1.0),
                           pressedOpacity: 0.5,
                           onPressed:  () {
-                            key.currentState.showSnackBar(new SnackBar(
+                            Scaffold.of(context).showSnackBar(new SnackBar(
                               content: new Text("I'm fixing bug with facebook :) Try Google"),
                             ));
                           },
 //                          _onClickFacebookAuth
+                        ),
                       ),
-                    ),
-                    new Padding(
-                      padding: new EdgeInsets.only(
-                          left: 32.0, right: 32.0, bottom: 15.0),
-                      child: new CupertinoButton(
-                          padding: new EdgeInsets.only(
-                              left: 16.0, bottom: 16.0, top: 16.0),
-                          child: new Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Image.asset('images/google_plus.png'),
+                      new Padding(
+                        padding: new EdgeInsets.only(
+                            left: 32.0, right: 32.0, bottom: 15.0),
+                        child: new CupertinoButton(
+                            padding: new EdgeInsets.only(
+                                left: 16.0, bottom: 16.0, top: 16.0),
+                            child: new Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              children: <Widget>[
+                                new Image.asset('images/google_plus.png'),
 
-                              new Expanded(child: new Text(
-                                "Увійти через Google",
-                                textAlign: TextAlign.center,
-                                style: new TextStyle(color: Colors.white),
-                              ))
-                            ],
-                          ),
-                          color: new Color.fromRGBO(232, 61, 40, 1.0),
-                          pressedOpacity: 0.5,
-                          onPressed: _onClickGoogleAuth
+                                new Expanded(child: new Text(
+                                  "Увійти через Google",
+                                  textAlign: TextAlign.center,
+                                  style: new TextStyle(color: Colors.white),
+                                ))
+                              ],
+                            ),
+                            color: new Color.fromRGBO(232, 61, 40, 1.0),
+                            pressedOpacity: 0.5,
+                            onPressed: _onClickGoogleAuth
+                        ),
                       ),
+
+                    ],
+                  )
+              ),
+              new Padding(
+                  padding: new EdgeInsets.only(top: 120.0),
+
+                  child: new Text("Це на 100% безпечніше ніж орігамі!",
+                    style: new TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.0
                     ),
+                  )
+              ),
 
-                  ],
-                )
-            ),
-            new Padding(
-                padding: new EdgeInsets.only(top: 120.0),
+            ],
+          );
+        })
 
-                child: new Text("Це на 100% безпечніше ніж орігамі!",
-                  style: new TextStyle(
-                      color: Colors.white,
-                      fontSize: 15.0
-                  ),
-                )
-            ),
-
-          ],
-        ),
 
 
       ),

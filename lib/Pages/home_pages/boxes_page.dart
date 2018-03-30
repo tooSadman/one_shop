@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:project_f/UI/box_widget.dart';
 
+///
+/// Create by Nikita Kiselov
+///
+
 class BoxesPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {

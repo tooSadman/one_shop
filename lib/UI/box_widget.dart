@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+///
+/// Create by Nikita Kiselov
+///
+
 class BoxWidget extends StatelessWidget {
   String _asset_image;
 

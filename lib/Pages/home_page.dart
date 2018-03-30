@@ -3,12 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project_f/Pages/home_pages/boxes_page.dart';
 import 'package:project_f/Pages/home_pages/list_page.dart';
+import 'package:project_f/Pages/home_pages/profile_page.dart';
+
+///
+/// Create by Nikita Kiselov
+///
 
 class HomePage extends StatefulWidget {
 
 // This widget is the home page of your application. It is stateful, meaning
 // that it has a State object (defined below) that contains fields that affect
 // how it looks.
+
+  //TODO try to use builder
   static final homePageScaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -84,6 +91,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   static ListPage _list_page = new ListPage();
   static BoxesPage _boxes_page = new BoxesPage();
+  static ProfilePage _profile_page = new ProfilePage();
 
   IconData _icon = Icons.email;
   int _currentIndex = 0;
@@ -164,6 +172,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               break;
             case 3:
               _homeWidget = _boxes_page;
+              break;
+            case 4:
+              _homeWidget = _profile_page;
               break;
           }
         });
