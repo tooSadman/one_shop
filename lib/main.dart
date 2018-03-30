@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: new LoginPage(),
+      home: auth.currentUser() != null ? new HomePage() : new LoginPage(),
 
     );
   }
