@@ -25,15 +25,15 @@ class ProfilePageState extends State<ProfilePage> {
         children: <Widget>[
           new Center(
             child: new Padding(
-              padding: new EdgeInsets.only(top: 40.0),
+              padding: new EdgeInsets.only(top: 32.0),
               child: new CircleAvatar(
-                backgroundImage: new AssetImage("images/box.png"),
+                child: new Text("ПЗ"),
                 minRadius: 45.0,
               ),
             ),
           ),
           new Padding(
-            padding: new EdgeInsets.only(top: 8.0, bottom: 8.0),
+            padding: new EdgeInsets.only(top: 16.0, bottom: 8.0),
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,42 +72,42 @@ class ProfilePageState extends State<ProfilePage> {
             ),
           ),
           new Padding(
-              padding: new EdgeInsets.only(top: 16.0),
+              padding: new EdgeInsets.only(top: 24.0),
               child: new Row(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   new Padding(
-                    padding: new EdgeInsets.only(),
+                    padding: new EdgeInsets.only(left: 16.0, right: 8.0),
                     child: new CupertinoButton(
-                      padding: new EdgeInsets.only(),
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          new Image.asset('images/instagram.png'),
-                        ],
+                      child: new Text(
+                        "НАЛАШТУВАННЯ",
+                        style: new TextStyle(
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      color: Colors.white,
+                      padding: new EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                      onPressed: () {},
+                      color: Colors.black,
                       pressedOpacity: 0.5,
-                      onPressed: null,
                     ),
                   ),
                   new Padding(
-                    padding: new EdgeInsets.only(),
+                    padding: new EdgeInsets.only(left: 8.0, right: 16.0),
                     child: new CupertinoButton(
-                      padding: new EdgeInsets.only(),
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: <Widget>[
-                          new Image.asset('images/instagram.png'),
-                        ],
+                      child: new Text(
+                        "СТВОРИТИ МАГАЗИН",
+                        style: new TextStyle(
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      color: Colors.white,
+                      padding: new EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
+                      onPressed: () {},
+                      color: Colors.black,
                       pressedOpacity: 0.5,
-                      onPressed: null,
                     ),
                   ),
                 ],

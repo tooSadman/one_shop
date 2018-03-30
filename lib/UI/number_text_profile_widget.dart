@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 ///
 
 class NumberTextWidget extends StatelessWidget {
-
   String _text;
   String _number;
-
 
   NumberTextWidget(this._text, this._number);
 
@@ -22,17 +20,13 @@ class NumberTextWidget extends StatelessWidget {
           padding: new EdgeInsets.only(bottom: 4.0),
           child: new Text(
             _number,
-            style: new TextStyle(
-              fontSize: 20.0
-            ),
+            style: new TextStyle(fontSize: 20.0),
             textAlign: TextAlign.center,
           ),
         ),
         new Text(
           _text,
-          style: new TextStyle(
-              fontSize: 14.0
-          ),
+          style: new TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
       ],
