@@ -30,6 +30,10 @@ flutter:
       - images/facebook.png
       - images/google_plus.png
       - images/instagram.png
+      - images/box.png
+      - images/box_image_1.png
+      - images/box_image_2.png
+      - images/box_image_3.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
