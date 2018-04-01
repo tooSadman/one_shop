@@ -6,6 +6,7 @@ import 'package:project_f/Pages/home_page.dart';
 import 'package:project_f/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 ///
 /// Create by Nikita Kiselov
@@ -195,9 +196,18 @@ class LoginPageState extends State<StatefulWidget> {
         idToken: credentials.idToken, //new
         accessToken: credentials.accessToken, //new
       );
+      //setting preferences
+      _settingPreferenceData(firebaseUser);
+
+      //new activity(widget)
       Navigator.of(context).push(new MaterialPageRoute(
           builder: (BuildContext context) => new HomePage()));
     }
+
+    //setting preferences
+    _settingPreferenceData(firebaseUser);
+
+    //new activity(widget)
     Navigator.of(context).push(new MaterialPageRoute(
         builder: (BuildContext context) => new HomePage()));
   }
@@ -213,7 +223,11 @@ class LoginPageState extends State<StatefulWidget> {
         final FacebookAccessToken accessToken = result.accessToken;
         firebaseUser =
         await auth.signInWithFacebook(accessToken: result.accessToken.token);
-        debugPrint(firebaseUser.email);
+
+        //setting preferences
+        _settingPreferenceData(firebaseUser);
+
+        //new activity(widget)
         Navigator.of(context).push(new MaterialPageRoute(
             builder: (BuildContext context) => new HomePage()));
         break;
@@ -231,6 +245,13 @@ class LoginPageState extends State<StatefulWidget> {
     Scaffold.of(context).showSnackBar(new SnackBar(
       content: new Text("Sending Message"),
     ));
+  }
+
+  Future _settingPreferenceData(FirebaseUser user) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("name", user.displayName);
+    prefs.setString("photo_url", user.photoUrl);
+    prefs.setString("email", user.email);
   }
 
 }

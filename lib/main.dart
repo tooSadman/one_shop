@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -10,9 +12,10 @@ final googleSignIn = new GoogleSignIn();
 final FacebookLogin facebookSignIn = new FacebookLogin();
 FirebaseUser firebaseUser;
 
-void main() => runApp(
-    new MyApp()
-);
+Future main() async {
+  firebaseUser = await auth.currentUser();
+  runApp(new MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -25,8 +28,19 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: auth.currentUser() != null ? new HomePage() : new LoginPage(),
-
+      home: _chooseStartingPage(),
     );
   }
 }
+
+Widget _chooseStartingPage() {
+  if (firebaseUser != null) {
+    return new HomePage();
+  } else {
+    return new LoginPage();
+  }
+}
+
+
+
+

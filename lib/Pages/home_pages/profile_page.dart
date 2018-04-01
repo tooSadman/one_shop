@@ -2,19 +2,36 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_f/UI/number_text_profile_widget.dart';
 import 'package:project_f/UI/vertical_divider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 ///
 /// Create by Nikita Kiselov
 ///
 
 class ProfilePage extends StatefulWidget {
+
+  String _name;
+  String _photoUrl;
+
+  ProfilePage(this._name, this._photoUrl);
+
+
   @override
   State<StatefulWidget> createState() {
-    return new ProfilePageState();
+    return new ProfilePageState(_name, _photoUrl);
   }
+
+
 }
 
 class ProfilePageState extends State<ProfilePage> {
+
+  String _name;
+  String _photoUrl;
+
+
+  ProfilePageState(this._name, this._photoUrl);
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -27,8 +44,10 @@ class ProfilePageState extends State<ProfilePage> {
             child: new Padding(
               padding: new EdgeInsets.only(top: 32.0),
               child: new CircleAvatar(
-                child: new Text("ПЗ"),
+                backgroundImage: new CachedNetworkImageProvider(_photoUrl),
+                backgroundColor: Colors.black,
                 minRadius: 45.0,
+                maxRadius: 45.0,
               ),
             ),
           ),
@@ -41,7 +60,7 @@ class ProfilePageState extends State<ProfilePage> {
                 new Padding(
                   padding: new EdgeInsets.only(bottom: 4.0),
                   child: new Text(
-                    "Павло Зібров",
+                    _name,
                     style: new TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,

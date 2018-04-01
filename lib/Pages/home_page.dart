@@ -1,9 +1,12 @@
+import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project_f/Pages/home_pages/boxes_page.dart';
 import 'package:project_f/Pages/home_pages/list_page.dart';
 import 'package:project_f/Pages/home_pages/profile_page.dart';
+import 'package:project_f/main.dart';
 
 ///
 /// Create by Nikita Kiselov
@@ -17,10 +20,20 @@ class HomePage extends StatefulWidget {
 
   //TODO try to use builder
   static final homePageScaffoldKey = new GlobalKey<ScaffoldState>();
+  static SharedPreferences prefs;
 
   @override
-  _HomePageState createState() => new _HomePageState();
+  _HomePageState createState() {
+    _setPreferences();
+    return new _HomePageState();
+  }
+
+  Future _setPreferences() async {
+    prefs = await SharedPreferences.getInstance();
+  }
 }
+
+
 
 
 class NavigationIconView {
@@ -91,7 +104,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   static ListPage _list_page = new ListPage();
   static BoxesPage _boxes_page = new BoxesPage();
-  static ProfilePage _profile_page = new ProfilePage();
+  static ProfilePage _profile_page = new ProfilePage(HomePage.prefs.getString("name"),
+      HomePage.prefs.getString("photo_url"));
 
   IconData _icon = Icons.email;
   int _currentIndex = 0;
