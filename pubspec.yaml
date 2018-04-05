@@ -36,6 +36,10 @@ flutter:
       - images/box_image_1.png
       - images/box_image_2.png
       - images/box_image_3.png
+      - images/girl.png
+      - images/socks.png
+      - images/sence.png
+      - images/gus.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

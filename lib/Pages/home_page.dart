@@ -18,8 +18,7 @@ class HomePage extends StatefulWidget {
 // that it has a State object (defined below) that contains fields that affect
 // how it looks.
 
-  //TODO try to use builder
-  static final homePageScaffoldKey = new GlobalKey<ScaffoldState>();
+
   static SharedPreferences prefs;
 
   @override
@@ -197,7 +196,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
 
     return new Scaffold(
-      key: HomePage.homePageScaffoldKey,
       appBar: null,
       body: _homeWidget,
       bottomNavigationBar: botNavBar,
