@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_f/UI/number_text_profile_widget.dart';
 import 'package:project_f/UI/vertical_divider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:project_f/Pages/home_pages/settings_page.dart';
 
 ///
 /// Create by Nikita Kiselov
@@ -108,7 +109,8 @@ class ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       padding: new EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 16.0),
-                      onPressed: () {},
+                      onPressed: () => Navigator.of(context).push(new MaterialPageRoute(
+          builder: (BuildContext context) => new SettingsPage())),
                       color: Colors.black,
                       pressedOpacity: 0.5,
                     ),
