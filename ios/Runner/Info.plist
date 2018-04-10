@@ -45,6 +45,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<key>NSCameraUsageDescription</key>                  <!-- new -->
+    <string>Share images with other chat users</string>  <!-- new -->
+    <key>NSPhotoLibraryUsageDescription</key>            <!-- new -->
+    <string>Share images with other chat users</string>  <!-- new -->
     
     <key>CFBundleURLTypes</key>
     <array>

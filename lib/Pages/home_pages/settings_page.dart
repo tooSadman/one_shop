@@ -16,14 +16,6 @@ class SettingsPageState extends State<SettingsPage> {
 
   bool _notification=false;
 
-
-
-  /*@override
-  void initState() {
-    super.initState();
-  
-  }*/
-
   void changeNotificationStatus(bool status) {
     status == true ? this.setState(() {
       _notification = false;
@@ -54,12 +46,14 @@ padding: new EdgeInsets.only(top: 6.0),
             ));
 
     return new Scaffold(
+        backgroundColor: Colors.white,
         appBar: new AppBar(
           backgroundColor: Colors.white,
           title: new Text(
             "НАЛАШТУВАННЯ",
             style: new TextStyle(color: Colors.black, fontSize: 15.0),
           ),
+          elevation: 0.0,
           centerTitle: true,
           leading: new IconButton(
             color: Colors.black,
@@ -67,6 +61,8 @@ padding: new EdgeInsets.only(top: 6.0),
             onPressed: () => Navigator.pop(context),
           ),
         ),
-        body: new ListView(children: [settingsSection]));
+        body: new ListView(
+            children: [settingsSection])
+    );
   }
 }

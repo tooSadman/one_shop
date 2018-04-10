@@ -6,13 +6,16 @@ dependencies:
     sdk: flutter
   google_sign_in: "^3.0.0"
   firebase_auth: "^0.5.0"
-  firebase_storage: "^0.2.0"
+  # TODO add permission for IOS for image picker
+  # https://pub.dartlang.org/packages/image_picker
+  firebase_storage: "^0.2.1"
   flutter_facebook_login: "^1.1.0"
-  cloud_firestore: "^0.3.0"
+  cloud_firestore: "^0.5.0"
   firebase_core: "^0.1.0"
   flutter_staggered_grid_view: "^0.1.2"
   shared_preferences: "^0.4.0"
   cached_network_image: "^0.4.0-rc.1"
+  image_picker: "^0.4.1"
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.0
@@ -40,10 +43,6 @@ flutter:
       - images/socks.png
       - images/sence.png
       - images/gus.png
-
-
-
-      
       - images/postcard.png
       - images/notebook.png
 
