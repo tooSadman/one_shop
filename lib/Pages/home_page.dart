@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:project_f/Pages/home_pages/boxes_page.dart';
 import 'package:project_f/Pages/home_pages/list_page.dart';
 import 'package:project_f/Pages/home_pages/profile_page.dart';
+import 'package:project_f/Pages/home_pages/cart_page.dart';
 import 'package:project_f/main.dart';
 
 ///
@@ -13,7 +14,6 @@ import 'package:project_f/main.dart';
 ///
 
 class HomePage extends StatefulWidget {
-
 // This widget is the home page of your application. It is stateful, meaning
 // that it has a State object (defined below) that contains fields that affect
 // how it looks.
@@ -32,17 +32,13 @@ class HomePage extends StatefulWidget {
   }
 }
 
-
-
-
 class NavigationIconView {
   NavigationIconView({
     Widget icon,
     String title,
     Color color,
     TickerProvider vsync,
-  })
-      : _icon = icon,
+  })  : _icon = icon,
         _color = color,
         _title = title,
         item = new BottomNavigationBarItem(
@@ -67,15 +63,14 @@ class NavigationIconView {
   final AnimationController controller;
   CurvedAnimation _animation;
 
-  FadeTransition transition(BottomNavigationBarType type,
-      BuildContext context) {
+  FadeTransition transition(
+      BottomNavigationBarType type, BuildContext context) {
     Color iconColor;
 
     final ThemeData themeData = Theme.of(context);
     iconColor = themeData.brightness == Brightness.light
         ? themeData.primaryColor
         : themeData.accentColor;
-
 
     return new FadeTransition(
       opacity: _animation,
@@ -100,11 +95,11 @@ class NavigationIconView {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-
   static ListPage _list_page = new ListPage();
+  static CartPage _cart_page = new CartPage();
   static BoxesPage _boxes_page = new BoxesPage();
-  static ProfilePage _profile_page = new ProfilePage(HomePage.prefs.getString("name"),
-      HomePage.prefs.getString("photo_url"));
+  static ProfilePage _profile_page = new ProfilePage(
+      HomePage.prefs.getString("name"), HomePage.prefs.getString("photo_url"));
 
   IconData _icon = Icons.email;
   int _currentIndex = 0;
@@ -154,8 +149,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    for (NavigationIconView view in _navigationViews)
-      view.controller.dispose();
+    for (NavigationIconView view in _navigationViews) view.controller.dispose();
     super.dispose();
   }
 
@@ -183,6 +177,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             case 0:
               _homeWidget = _list_page;
               break;
+            case 2:
+              _homeWidget = _cart_page;
+              break;
             case 3:
               _homeWidget = _boxes_page;
               break;
@@ -194,7 +191,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       },
     );
 
-
     return new Scaffold(
       appBar: null,
       body: _homeWidget,
@@ -202,4 +198,3 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 }
-

@@ -13,186 +13,170 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 
 class LoginPage extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return new LoginPageState();
   }
-
 }
 
 class LoginPageState extends State<StatefulWidget> {
-
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       body: new Container(
-        decoration: new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage('images/login.png'),
-              fit: BoxFit.cover,
-            )
-        ),
+          decoration: new BoxDecoration(
+              image: new DecorationImage(
+            image: new AssetImage('images/login.png'),
+            fit: BoxFit.cover,
+          )),
 
-        /// Here I`m using builder for context. Its neede to build Toasts.
+          /// Here I`m using builder for context. Its neede to build Toasts.
           /// So in release it's need to refactor
           //TODO decide what to do with builder
-        child: new Builder(builder: (BuildContext context) {
-          return new Column(
-            children: <Widget>[
-              new Padding(
-                padding: new EdgeInsets.only(top: 100.0, bottom: 10.0),
-                child: new Text(
-                  "ONE:SHOP", textAlign: TextAlign.center,
-                  style: new TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40.0
+          child: new Builder(builder: (BuildContext context) {
+            return new Column(
+              children: <Widget>[
+                new Padding(
+                  padding: new EdgeInsets.only(top: 100.0, bottom: 10.0),
+                  child: new Text(
+                    "ONE:SHOP",
+                    textAlign: TextAlign.center,
+                    style: new TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 40.0),
                   ),
                 ),
-              ),
-              new Padding(
-                padding: new EdgeInsets.only(left: 4.0, right: 4.0, bottom: 45.0),
-                child: new Column(
+                new Padding(
+                  padding:
+                      new EdgeInsets.only(left: 4.0, right: 4.0, bottom: 45.0),
+                  child: new Column(
+                    children: <Widget>[
+                      new Text(
+                        "Привіт! Почнімо?",
+                        style:
+                            new TextStyle(color: Colors.white, fontSize: 15.5),
+                      ),
+                      new Text(
+                        "Заходь до нас через свій улюблений сервіс.",
+                        style:
+                            new TextStyle(color: Colors.white, fontSize: 15.5),
+                      )
+                    ],
+                  ),
+                ),
+                new Center(
+                    child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    new Text("Привіт! Почнімо?",
-                      style: new TextStyle(
-                          color: Colors.white,
-                          fontSize: 15.5
+                    new Padding(
+                      padding: new EdgeInsets.only(
+                          left: 32.0, right: 32.0, bottom: 15.0),
+                      child: new CupertinoButton(
+                        padding: new EdgeInsets.only(
+                            left: 16.0, bottom: 16.0, top: 16.0),
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Image.asset('images/instagram.png'),
+                            new Expanded(
+                                child: new Text(
+                              "Увійти через Instagram",
+                              textAlign: TextAlign.center,
+                              style: new TextStyle(
+                                  color: new Color.fromRGBO(162, 42, 132, 1.0)),
+                            ))
+                          ],
+                        ),
+                        color: Colors.white,
+                        pressedOpacity: 0.5,
+                        onPressed: () {
+                          Scaffold.of(context).showSnackBar(new SnackBar(
+                                content: new Text("This feature in develop"),
+                              ));
+                        },
                       ),
                     ),
-                    new Text("Заходь до нас через свій улюблений сервіс.",
-                      style: new TextStyle(
-                          color: Colors.white,
-                          fontSize: 15.5
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              new Center(
-                  child: new Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      new Padding(
+                    new Padding(
+                      padding: new EdgeInsets.only(
+                          left: 32.0, right: 32.0, bottom: 15.0),
+                      //TODO add button to UI
+                      child: new CupertinoButton(
                         padding: new EdgeInsets.only(
-                            left: 32.0, right: 32.0, bottom: 15.0),
-                        child: new CupertinoButton(
-                          padding: new EdgeInsets.only(
-                              left: 16.0, bottom: 16.0, top: 16.0),
-                          child: new Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Image.asset('images/instagram.png'),
-
-                              new Expanded(child: new Text(
-                                "Увійти через Instagram",
-                                textAlign: TextAlign.center,
-                                style: new TextStyle(color: new Color.fromRGBO(
-                                    162, 42, 132, 1.0)),
-                              ))
-                            ],
-                          ),
-                          color: Colors.white,
-                          pressedOpacity: 0.5,
-                          onPressed: () {
-                            Scaffold.of(context).showSnackBar(new SnackBar(
-                              content: new Text(
-                                  "This feature in develop"),
-                            ));
-                          },
+                            left: 16.0, bottom: 16.0, top: 16.0),
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Image.asset('images/facebook.png'),
+                            new Expanded(
+                                child: new Text(
+                              "Увійти через Facebook",
+                              textAlign: TextAlign.center,
+                              style: new TextStyle(color: Colors.white),
+                            ))
+                          ],
                         ),
+                        color: new Color.fromRGBO(10, 97, 176, 1.0),
+                        pressedOpacity: 0.5,
+                        onPressed: _onClickFacebookAuth,
+//                          _onClickFacebookAuth
                       ),
-                      new Padding(
-                        padding: new EdgeInsets.only(
-                            left: 32.0, right: 32.0, bottom: 15.0),
-                        //TODO add button to UI
-                        child: new CupertinoButton(
+                    ),
+                    new Padding(
+                      padding: new EdgeInsets.only(
+                          left: 32.0, right: 32.0, bottom: 15.0),
+                      child: new CupertinoButton(
                           padding: new EdgeInsets.only(
                               left: 16.0, bottom: 16.0, top: 16.0),
                           child: new Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
-                              new Image.asset('images/facebook.png'),
-
-                              new Expanded(child: new Text(
-                                "Увійти через Facebook",
+                              new Image.asset('images/google_plus.png'),
+                              new Expanded(
+                                  child: new Text(
+                                "Увійти через Google",
                                 textAlign: TextAlign.center,
                                 style: new TextStyle(color: Colors.white),
                               ))
                             ],
                           ),
-                          color: new Color.fromRGBO(10, 97, 176, 1.0),
+                          color: new Color.fromRGBO(232, 61, 40, 1.0),
                           pressedOpacity: 0.5,
-                          onPressed:  _onClickFacebookAuth,
-//                          _onClickFacebookAuth
-                        ),
-                      ),
-                      new Padding(
-                        padding: new EdgeInsets.only(
-                            left: 32.0, right: 32.0, bottom: 15.0),
-                        child: new CupertinoButton(
-                            padding: new EdgeInsets.only(
-                                left: 16.0, bottom: 16.0, top: 16.0),
-                            child: new Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
-                              children: <Widget>[
-                                new Image.asset('images/google_plus.png'),
-
-                                new Expanded(child: new Text(
-                                  "Увійти через Google",
-                                  textAlign: TextAlign.center,
-                                  style: new TextStyle(color: Colors.white),
-                                ))
-                              ],
-                            ),
-                            color: new Color.fromRGBO(232, 61, 40, 1.0),
-                            pressedOpacity: 0.5,
-                            onPressed: _onClickGoogleAuth
-                        ),
-                      ),
-
-                    ],
-                  )
-              ),
-              new Padding(
-                  padding: new EdgeInsets.only(top: 120.0),
-
-                  child: new Text("Це на 100% безпечніше ніж орігамі!",
-                    style: new TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.0
+                          onPressed: _onClickGoogleAuth),
                     ),
-                  )
-              ),
-
-            ],
-          );
-        })
-
-
-
-      ),
+                  ],
+                )),
+                new Padding(
+                    padding: new EdgeInsets.only(top: 120.0),
+                    child: new Text(
+                      "Це на 100% безпечніше ніж орігамі!",
+                      style: new TextStyle(color: Colors.white, fontSize: 15.0),
+                    )),
+              ],
+            );
+          })),
     );
   }
 
-
   Future _onClickGoogleAuth() async {
     GoogleSignInAccount user = googleSignIn.currentUser;
-    if (user == null)
+    if (user == null) {
       user = await googleSignIn.signInSilently();
+    }
     if (user == null) {
       await googleSignIn.signIn();
       //TODO add analytics analytics.logLogin();
     }
-    if (await auth.currentUser() == null) { //new
-      GoogleSignInAuthentication credentials = await googleSignIn.currentUser
-          .authentication;
-      firebaseUser = await auth.signInWithGoogle( //new
+    if (await auth.currentUser() == null) {
+      //new
+      GoogleSignInAuthentication credentials =
+          await googleSignIn.currentUser.authentication;
+      firebaseUser = await auth.signInWithGoogle(
+        //new
         idToken: credentials.idToken, //new
         accessToken: credentials.accessToken, //new
       );
@@ -215,14 +199,13 @@ class LoginPageState extends State<StatefulWidget> {
   Future _onClickFacebookAuth() async {
     firebaseUser = await auth.currentUser();
 
-    final result =
-    await facebookSignIn.logInWithReadPermissions(['email']);
+    final result = await facebookSignIn.logInWithReadPermissions(['email']);
 
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
         final FacebookAccessToken accessToken = result.accessToken;
-        firebaseUser =
-        await auth.signInWithFacebook(accessToken: result.accessToken.token);
+        firebaseUser = await auth.signInWithFacebook(
+            accessToken: result.accessToken.token);
 
         //setting preferences
         _settingPreferenceData(firebaseUser);
@@ -243,8 +226,8 @@ class LoginPageState extends State<StatefulWidget> {
 
   void _showInDevelopToast() {
     Scaffold.of(context).showSnackBar(new SnackBar(
-      content: new Text("Sending Message"),
-    ));
+          content: new Text("Sending Message"),
+        ));
   }
 
   Future _settingPreferenceData(FirebaseUser user) async {
@@ -253,5 +236,4 @@ class LoginPageState extends State<StatefulWidget> {
     prefs.setString("photo_url", user.photoUrl);
     prefs.setString("email", user.email);
   }
-
 }
