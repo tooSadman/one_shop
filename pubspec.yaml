@@ -45,6 +45,8 @@ flutter:
       - images/gus.png
       - images/postcard.png
       - images/notebook.png
+      - images/socks_2.png
+      - images/sammy_icon.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

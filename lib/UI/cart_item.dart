@@ -6,8 +6,8 @@ class CartItem extends StatelessWidget {
   final String _cartItemPrice;
   final VoidCallback _onPressed;
 
-  CartItem(this._assetCartImage, this._cartItemTitle,
-      this._cartItemPrice, this._onPressed);
+  CartItem(this._assetCartImage, this._cartItemTitle, this._cartItemPrice,
+      this._onPressed);
 
   @override
   Widget build(BuildContext context) {

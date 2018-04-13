@@ -6,6 +6,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_f/Pages/home_page.dart';
+import 'package:project_f/Pages/product_page.dart';
 import 'package:project_f/main.dart';
 
 ///
@@ -83,7 +84,8 @@ class ListPageState extends State<StatefulWidget> {
                         ),
                     color: Colors.white),
               ),
-              onTap: () {},
+              onTap: () => Navigator.of(context).push(new MaterialPageRoute(
+                  builder: (BuildContext context) => new ProductPage())),
             ),
         staggeredTileBuilder: (int index) => new StaggeredTile
             .count(2, index > 4 ?  index - 3 : index + 1),
