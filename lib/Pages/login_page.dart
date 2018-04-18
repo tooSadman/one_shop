@@ -1,12 +1,17 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:path/path.dart';
+import 'package:project_f/Pages/Module/Login/login_presenter.dart';
 import 'package:project_f/Pages/home_page.dart';
+import 'package:project_f/Pages/instagram.dart';
 import 'package:project_f/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 ///
 /// Create by Nikita Kiselov
@@ -19,9 +24,29 @@ class LoginPage extends StatefulWidget {
   }
 }
 
-class LoginPageState extends State<StatefulWidget> {
+class LoginPageState extends State<StatefulWidget>  implements LoginViewContract{
+
+  LoginPresenter _presenter;
+  Token token;
+
+  @override
+  void onLoginError(String msg) {
+
+  }
+
+  @override
+  void onLoginScuccess(Token t) {
+    setState(() async {
+      token = t;
+      firebaseUser = await auth.signInWithCustomToken(token: token.toString());
+      debugPrint(firebaseUser.photoUrl);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    _presenter = new LoginPresenter(this);
+
     return new Scaffold(
       body: new Container(
           decoration: new BoxDecoration(
@@ -92,10 +117,12 @@ class LoginPageState extends State<StatefulWidget> {
                         ),
                         color: Colors.white,
                         pressedOpacity: 0.5,
-                        onPressed: () {
-                          Scaffold.of(context).showSnackBar(new SnackBar(
-                                content: new Text("This feature in develop"),
-                              ));
+                        onPressed: () async {
+
+
+                          _presenter.perform_login();
+
+
                         },
                       ),
                     ),
@@ -235,5 +262,23 @@ class LoginPageState extends State<StatefulWidget> {
     prefs.setString("name", user.displayName);
     prefs.setString("photo_url", user.photoUrl);
     prefs.setString("email", user.email);
+  }
+
+  Future<Stream<String>> _server() async {
+    final StreamController<String> onCode = new StreamController();
+    HttpServer server =
+    await HttpServer.bind(InternetAddress.LOOPBACK_IP_V4, 8585);
+    server.listen((HttpRequest request) async {
+      final String code = request.uri.queryParameters["code"];
+      request.response
+        ..statusCode = 200
+        ..headers.set("Content-Type", ContentType.HTML.mimeType)
+        ..write("<html><h1>You can now close this window</h1></html>");
+      await request.response.close();
+      await server.close(force: true);
+      onCode.add(code);
+      await onCode.close();
+    });
+    return onCode.stream;
   }
 }

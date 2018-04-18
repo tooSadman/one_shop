@@ -16,6 +16,8 @@ dependencies:
   shared_preferences: "^0.4.0"
   cached_network_image: "^0.4.0-rc.1"
   image_picker: "^0.4.1"
+  flutter_webview_plugin: ">=0.0.5 <0.1.0"
+  instagram: "^1.0.0-rc.1"
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.0
