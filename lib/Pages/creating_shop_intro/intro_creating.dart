@@ -34,20 +34,6 @@ class IntroCreatingShopPage extends StatelessWidget {
             ),
             alignment: Alignment.center,
           ),
-//          new Text(
-//            "Лише декілька кроків до мети!",
-//            textAlign: TextAlign.center,
-//            style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-//          ),
-//          new Padding(
-//            padding: new EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 8.0),
-//            child: new Text(
-//              "Створюй свій власний магазин, імпортуй товари з Instagram,"
-//                  " збільшуй продажі та кількість клієнтів!",
-//              textAlign: TextAlign.center,
-//              style: new TextStyle(fontSize: 14.0),
-//            ),
-//          ),
           new TitledTextInShopCreating(
               "Лише декілька кроків до мети!",
               "Створюй свій власний магазин, імпортуй товари з Instagram, збільшуй продажі та кількість клієнтів!"),

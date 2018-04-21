@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:project_f/Pages/creating_shop_intro/adding_info.dart';
+import 'package:project_f/Pages/creating_shop_intro/adding_images.dart';
+import 'package:project_f/UI/titled_text_in_shop_creating.dart';
 
 class InstagramIntegrationPage extends StatelessWidget {
   @override
@@ -33,21 +34,23 @@ class InstagramIntegrationPage extends StatelessWidget {
             ),
             alignment: Alignment.center,
           ),
-          new Text(
-            "Є сторінка бренду в Instagram?",
-            textAlign: TextAlign.center,
-            style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-          ),
-          new Padding(
-            padding: new EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 8.0),
-            child: new Text(
-              "Під'єднюй акаунт, імпортуй фото власних товарів, кількість лайків, "
-                  "відгуки користувачів та хештеги",
-              textAlign: TextAlign.center,
-              style: new TextStyle(fontSize: 14.0),
-            ),
-          ),
-          new Padding(
+//          new Text(
+//            "Є сторінка бренду в Instagram?",
+//            textAlign: TextAlign.center,
+//            style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+//          ),
+//          new Padding(
+//            padding: new EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 8.0),
+//            child: new Text(
+//              "Під'єднюй акаунт, імпортуй фото власних товарів, кількість лайків, "
+//                  "відгуки користувачів та хештеги",
+//              textAlign: TextAlign.center,
+//              style: new TextStyle(fontSize: 14.0),
+//            ),
+//          ),
+          new TitledTextInShopCreating("Є сторінка бренду в Instagram?", "Під'єднюй акаунт, "
+              "імпортуй фото власних товарів, кількість лайків, ""відгуки користувачів та хештеги",),
+          new Padding (
               padding: new EdgeInsets.fromLTRB(16.0, 64.0, 16.0, 16.0),
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
