@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:project_f/Pages/order_page.dart';
 import 'package:project_f/UI/cart_item.dart';
 
 ///
-///  Create by sin_maminoy_podrugi 
+///  Create by sin_maminoy_podrugi
 ///
 
 class CartPage extends StatefulWidget {
@@ -13,6 +14,7 @@ class CartPage extends StatefulWidget {
 
 class CartPageState extends State<CartPage> {
   String _cartPrice = "240.00 грн.";
+
   @override
   Widget build(BuildContext context) {
     Widget settingsSection = new Padding(
@@ -63,7 +65,8 @@ class CartPageState extends State<CartPage> {
         child: new MaterialButton(
             height: 50.0,
             color: Colors.black,
-            onPressed: () => {},
+            onPressed: () => Navigator.of(context).push(new MaterialPageRoute(
+                builder: (BuildContext context) => new OrderPage())),
             child: new Text(
               "ОФОРМИТИ ЗАМОВЛЕННЯ",
               style: new TextStyle(

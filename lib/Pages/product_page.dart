@@ -1,17 +1,40 @@
+import 'dart:async';
+
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project_f/UI/brand_box.dart';
 import 'package:project_f/UI/text_column_product_page.dart';
 
 class ProductPage extends StatefulWidget {
+
+  String documentID;
+
+
+  ProductPage(this.documentID);
+
   @override
   State<StatefulWidget> createState() {
-    return new ProductPageState();
+    return new ProductPageState(documentID);
   }
 }
 
 class ProductPageState extends State<StatefulWidget> {
+  String _logoImageUrl;
+  Image _productImage;
+  String _productName = "";
+  static String _shopName = "";
+  static String _productAbout = "";
+  static String _shopAbout = "";
+
+  String documentID;
+
+
+  ProductPageState(this.documentID);
+
   @override
   Widget build(BuildContext context) {
+    _settingData();
     return new Theme(
         data: new ThemeData(
           brightness: Brightness.light,
@@ -39,11 +62,7 @@ class ProductPageState extends State<StatefulWidget> {
                     background: new Stack(
                       fit: StackFit.expand,
                       children: <Widget>[
-                        new Image.asset(
-                          'images/socks_2.png',
-                          fit: BoxFit.cover,
-                          height: 350.0,
-                        ),
+                        _productImage != null ? _productImage : new Container(),
                         // This gradient ensures that the toolbar icons are distinct
                         // against the background image.
                         const DecoratedBox(
@@ -65,7 +84,7 @@ class ProductPageState extends State<StatefulWidget> {
                 new SliverList(
                     delegate: new SliverChildListDelegate(
                   <Widget>[
-                    new TextPriceTextColumn(),
+                    new TextPriceTextColumn(_productName),
                     new Container(
                       padding: new EdgeInsets.fromLTRB(16.0, 4.0, 16.0, 16.0),
                       child: new Row(
@@ -163,7 +182,7 @@ class ProductPageState extends State<StatefulWidget> {
                     ),
                     confirmAddToCart,
                     textForProduct,
-                    new BrandBox()
+                    new BrandBox(_logoImageUrl, _shopAbout)
                   ],
                 ))
               ],
@@ -188,13 +207,39 @@ class ProductPageState extends State<StatefulWidget> {
   Widget textForProduct = new Container(
     padding: new EdgeInsets.all(16.0),
     child: new Text(
-      "Коли Семмі був маленьким, "
-          "він думав, що бенгальский тигр – це тигр, який запалює бенгальскі вогники. "
-          "Вже будучи дорослим і зустрівши цього велетня у Гімалаях, він зрозумів свою помилку: "
-          "не було ні гірлянд, ні вогників… була тільки необхідність бігти чимдуж. "
-          "Але Семмі таки встиг замалювати тигра, "
-          "щоб назавжди запам’ятати той момент прозріння.",
+      _productAbout,
       style: new TextStyle(fontSize: 13.0),
     ),
   );
+
+  Future _settingData() async {
+    DocumentReference documentReference =
+        Firestore.instance.collection('goods').document(documentID);
+    DocumentSnapshot document = await documentReference.get();
+    _productImage = document["photo_url"] != null
+        ? new Image(
+            image: new CachedNetworkImageProvider(document["photo_url"]),
+            fit: BoxFit.cover,
+            height: 350.0,
+          )
+        : null;
+    _productName = document["product_name"];
+    _productAbout = document["product_about"];
+
+    documentReference = document["shop"];
+    document = await documentReference.get();
+
+    _logoImageUrl = document["logo_url"];
+    _shopName = document["name"];
+    _shopAbout = document["about"];
+
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+
 }

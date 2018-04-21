@@ -133,6 +133,7 @@ class OrderPageState extends State<OrderPage> {
 
     return new Scaffold(
         appBar: new AppBar(
+          elevation: 0.0,
           title: new Text("Оформлення замовлення",
               style: new TextStyle(
                 fontWeight: FontWeight.bold,

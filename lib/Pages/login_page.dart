@@ -235,5 +235,6 @@ class LoginPageState extends State<StatefulWidget> {
     prefs.setString("name", user.displayName);
     prefs.setString("photo_url", user.photoUrl);
     prefs.setString("email", user.email);
+    prefs.setBool("shop_is_created", false);
   }
 }

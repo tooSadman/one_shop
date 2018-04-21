@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -66,32 +67,48 @@ class ListPageState extends State<StatefulWidget> {
       ),
       new Container(
           child: new Flexible(
-              child: new StaggeredGridView.countBuilder(
-        crossAxisCount: 4,
-        itemCount: 7,
-        padding: new EdgeInsets.all(8.0),
-        itemBuilder: (BuildContext context, int index) => new GestureDetector(
-              child: new Container(
-                decoration: new BoxDecoration(
-                    borderRadius:
-                        new BorderRadius.all(new Radius.circular(10.0)),
-                    border: new Border.all(
-                        color: new Color.fromRGBO(149, 152, 154, 0.15),
-                        width: 2.0),
-                    image:
-                        new DecorationImage(image: new AssetImage(map[++index]),
-                          fit: BoxFit.cover,
-                        ),
-                    color: Colors.white),
-              ),
-              onTap: () => Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) => new ProductPage())),
-            ),
-        staggeredTileBuilder: (int index) => new StaggeredTile
-            .count(2, index > 4 ?  index - 3 : index + 1),
-        mainAxisSpacing: 8.0,
-        crossAxisSpacing: 8.0,
-      ))),
+              child: new StreamBuilder<QuerySnapshot>(
+                  stream: Firestore.instance.collection('goods').snapshots,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) return new Text('Loading...');
+                    return new StaggeredGridView.count(
+                      crossAxisCount: 4,
+                      padding: new EdgeInsets.all(8.0),
+                      staggeredTiles: snapshot.data.documents
+                          .map((DocumentSnapshot document) {
+                        return new StaggeredTile.count(2, 2);
+                      }).toList(),
+
+//        staggeredTileBuilder: (int index) =>
+//            new StaggeredTile.count(2, index > 4 ? index - 3 : index + 1),
+                      mainAxisSpacing: 8.0,
+                      crossAxisSpacing: 8.0,
+                      children: snapshot.data.documents
+                          .map((DocumentSnapshot document) {
+                        return new GestureDetector(
+                          child: new Container(
+                            decoration: new BoxDecoration(
+                                borderRadius: new BorderRadius.all(
+                                    new Radius.circular(10.0)),
+                                border: new Border.all(
+                                    color:
+                                        new Color.fromRGBO(149, 152, 154, 0.15),
+                                    width: 2.0),
+                                image: new DecorationImage(
+                                  image:  new CachedNetworkImageProvider(document['photo_url']),
+                                  fit: BoxFit.cover,
+                                ),
+                                color: Colors.white),
+                          ),
+                          onTap: () => Navigator.of(context).push(
+                              new MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      new ProductPage(document.documentID))),
+                        );
+                      }).toList(),
+                    );
+                  }))),
     ]);
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:project_f/UI/settings_item.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -6,6 +8,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'dart:math';
 import 'dart:io';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class AddingProductPage extends StatefulWidget {
   @override
@@ -18,7 +23,7 @@ class AddingProductPageState extends State<AddingProductPage> {
   Image _productImage = new Image.asset("images/gus.png", width: 300.0);
   Uri _downloadUrl;
   File _imageFile;
-  CollectionReference get messages => Firestore.instance.collection('shops/dvjxfkTLXsZtRKhbxkYA/goods');
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,16 +68,28 @@ class AddingProductPageState extends State<AddingProductPage> {
                 "Готово",
                 "зберегти зміни",
                 () async {
+                  String shopID;
                   int random = new Random().nextInt(100000);
+
                   StorageReference ref =
                       FirebaseStorage.instance.ref().child("image_$random.jpg");
                   StorageUploadTask uploadTask = ref.put(_imageFile);
                   _downloadUrl = (await uploadTask.future).downloadUrl;
 
-                  final DocumentReference document = messages.document(random.toString());
-                  document.setData(<String, dynamic>{
-                    'message': 'Hello world!',
-                    'photo_url': _downloadUrl.toString()
+                  //Setting preferences
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                  shopID = prefs.get("shopID");
+
+                  CollectionReference goodsReference = Firestore.instance.collection('goods');
+
+
+                  final DocumentReference document = await goodsReference.add(<String, dynamic>{
+                    'product_name' : 'Hello world!',
+                    'product_about': 'Коли Семмі був маленьким, він думав, що бенгальский тигр – це тигр, '
+                        'який запалює бенгальскі вогники. Вже будучи дорослим і зустрівши цього велетня у Гімалаях, він зрозумів свою помилку: не було ні гірлянд, ні вогників… була тільки необхідність бігти чимдуж.'
+                        ' Але Семмі таки встиг замалювати тигра, щоб назавжди запам’ятати той момент прозріння.',
+                    'photo_url': _downloadUrl.toString(),
+                    'shop': '/shops/' + shopID
                   });
 
                 },
@@ -83,4 +100,8 @@ class AddingProductPageState extends State<AddingProductPage> {
       ),
     );
   }
+
+
 }
+
+

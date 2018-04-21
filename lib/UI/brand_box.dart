@@ -1,6 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class BrandBox extends StatelessWidget {
+  String _logoUrl;
+  String _shopAbout;
+
+  BrandBox(this._logoUrl, this._shopAbout);
+
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -18,7 +24,13 @@ class BrandBox extends StatelessWidget {
                     children: <Widget>[
                       new Padding(
                         padding: new EdgeInsets.all(8.0),
-                        child: new Image.asset("images/sammy_icon.png"),
+                        child: _logoUrl != null
+                            ? new Image(
+                                image: new CachedNetworkImageProvider(_logoUrl),
+                                fit: BoxFit.cover,
+                                width: 40.0,
+                              )
+                            : new Container(),
                       ),
                       new Text(
                         "Sammy Icon",
@@ -34,8 +46,7 @@ class BrandBox extends StatelessWidget {
             new Container(
               padding: new EdgeInsets.all(8.0),
               child: new Text(
-                "Ми робимо речі, з яких починається твій стиль."
-                    " І робимо їх класно!",
+                _shopAbout,
                 style:
                     new TextStyle(fontSize: 20.0, fontStyle: FontStyle.italic),
               ),

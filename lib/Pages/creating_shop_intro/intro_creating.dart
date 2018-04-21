@@ -48,9 +48,7 @@ class IntroCreatingShopPage extends StatelessWidget {
                 ),
               ),
               padding: new EdgeInsets.fromLTRB(100.0, 16.0, 100.0, 16.0),
-              onPressed: () => Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      new InstagramIntegrationPage())),
+              onPressed: () => Navigator.of(context).pushNamed("/instagram_integration"),
               color: Colors.black,
               pressedOpacity: 0.5,
               borderRadius: new BorderRadius.circular(4.0),

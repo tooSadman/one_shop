@@ -34,20 +34,6 @@ class InstagramIntegrationPage extends StatelessWidget {
             ),
             alignment: Alignment.center,
           ),
-//          new Text(
-//            "Є сторінка бренду в Instagram?",
-//            textAlign: TextAlign.center,
-//            style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-//          ),
-//          new Padding(
-//            padding: new EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 8.0),
-//            child: new Text(
-//              "Під'єднюй акаунт, імпортуй фото власних товарів, кількість лайків, "
-//                  "відгуки користувачів та хештеги",
-//              textAlign: TextAlign.center,
-//              style: new TextStyle(fontSize: 14.0),
-//            ),
-//          ),
           new TitledTextInShopCreating("Є сторінка бренду в Instagram?", "Під'єднюй акаунт, "
               "імпортуй фото власних товарів, кількість лайків, ""відгуки користувачів та хештеги",),
           new Padding (
@@ -65,10 +51,7 @@ class InstagramIntegrationPage extends StatelessWidget {
                       ),
                     ),
                     padding: new EdgeInsets.fromLTRB(32.0, 16.0, 32.0, 16.0),
-                    onPressed: () => Navigator.of(context).push(
-                        new MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                new InstagramIntegrationPage())),
+                    onPressed: () {},
                     color: Colors.black,
                     pressedOpacity: 0.5,
                     borderRadius: new BorderRadius.circular(4.0),
@@ -90,9 +73,7 @@ class InstagramIntegrationPage extends StatelessWidget {
                             color: Colors.black),
                       ),
                       padding: new EdgeInsets.fromLTRB(38.0, 14.0, 38.0, 14.0),
-                      onPressed:() => Navigator.of(context).push(new MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                          new AddingInfoPage())),
+                      onPressed:() => Navigator.of(context).pushNamed("/add_images"),
                       color: Colors.white,
                       pressedOpacity: 0.5,
                       borderRadius: new BorderRadius.circular(4.0),

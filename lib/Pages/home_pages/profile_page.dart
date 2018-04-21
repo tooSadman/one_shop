@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_f/Pages/adding_product_page.dart';
@@ -6,6 +8,7 @@ import 'package:project_f/UI/number_text_profile_widget.dart';
 import 'package:project_f/UI/vertical_divider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:project_f/Pages/home_pages/settings_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 ///
 /// Create by Nikita Kiselov
@@ -26,11 +29,13 @@ class ProfilePage extends StatefulWidget {
 class ProfilePageState extends State<ProfilePage> {
   String _name;
   String _photoUrl;
+  bool _shopIsCreated = false;
 
   ProfilePageState(this._name, this._photoUrl);
 
   @override
   Widget build(BuildContext context) {
+    _settingPreferenceData();
     return new Scaffold(
         body: new Container(
       child: new Column(
@@ -117,29 +122,29 @@ class ProfilePageState extends State<ProfilePage> {
                       padding: new EdgeInsets.only(left: 8.0, right: 16.0),
                       child: new Container(
                         decoration: new BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: new BorderRadius.all(const Radius.circular(10.0)),
-                          border: new Border.all(
                             color: Colors.black,
-                            width: 2.0
-                          )
-                        ),
+                            borderRadius: new BorderRadius.all(
+                                const Radius.circular(10.0)),
+                            border: new Border.all(
+                                color: Colors.black, width: 2.0)),
                         child: new CupertinoButton(
                           color: Colors.white,
                           child: new Text(
-                            "СТВОРИТИ МАГАЗИН",
+                            _shopIsCreated
+                                ? "ПЕРЕЙТИ В МАГАЗИН"
+                                : "СТВОРИТИ МАГАЗИН",
                             style: new TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black
-                            ),
+                                fontSize: 13.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
                           ),
                           padding:
                               new EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
-                          onPressed: () => Navigator.of(context).push(
-                              new MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      new IntroCreatingShopPage())),
+                          onPressed: () => !_shopIsCreated
+                              ? Navigator
+                                  .of(context)
+                                  .pushNamed("/intro_creating")
+                              : null,
                           pressedOpacity: 0.5,
                         ),
                       )),
@@ -148,5 +153,12 @@ class ProfilePageState extends State<ProfilePage> {
         ],
       ),
     ));
+  }
+
+  Future _settingPreferenceData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _shopIsCreated = prefs.get("shop_is_created");
+    });
   }
 }

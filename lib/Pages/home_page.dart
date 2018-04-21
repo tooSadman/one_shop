@@ -161,6 +161,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
     //Bottom Navigation menu
     final BottomNavigationBar botNavBar = new BottomNavigationBar(
       items: _navigationViews

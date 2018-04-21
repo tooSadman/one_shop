@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project_f/Pages/creating_shop_intro/succesfully_added.dart';
 import 'package:project_f/UI/titled_text_in_shop_creating.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddingInfoPage extends StatefulWidget {
   @override
@@ -17,6 +19,8 @@ class AddingInfoPage extends StatefulWidget {
 }
 
 class AddingInfoPageState extends State<AddingInfoPage> {
+  String _currentUserID = "I9v7sS6mhoZEL5id56mo56iEMM53";
+
   Image _coverImage;
   Image _logoImage;
 
@@ -30,14 +34,16 @@ class AddingInfoPageState extends State<AddingInfoPage> {
     borderRadius: new BorderRadius.circular(80.0),
   );
 
-  Uri _downloadUrl;
-  File _imageFile;
+  Uri _downloadCoverUrl;
+  Uri _downloadLogoUrl;
+
+  File _imageLogoFile;
+  File _imageCoverFile;
 
   bool _isHaveCoverImage = false;
   bool _isHaveLogoImage = false;
 
-//  CollectionReference get messages =>
-//      Firestore.instance.collection('shops/dvjxfkTLXsZtRKhbxkYA/goods');
+  CollectionReference get shops => Firestore.instance.collection('shops');
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +89,10 @@ class AddingInfoPageState extends State<AddingInfoPage> {
                       height: 240.0,
                     ),
                     onTap: () async {
-                      _imageFile = await ImagePicker.pickImage(
+                      _imageCoverFile = await ImagePicker.pickImage(
                           source: ImageSource.gallery);
                       setState(() {
-                        _coverImage = new Image.file(_imageFile, width: 200.0);
+                        _coverImage = new Image.file(_imageCoverFile);
                         _coverBoxDecoration = new BoxDecoration(
                             color: new Color.fromRGBO(243, 243, 243, 1.0),
                             image: new DecorationImage(
@@ -110,10 +116,10 @@ class AddingInfoPageState extends State<AddingInfoPage> {
                       margin: new EdgeInsets.only(top: 160.0),
                     ),
                     onTap: () async {
-                      _imageFile = await ImagePicker.pickImage(
+                      _imageLogoFile = await ImagePicker.pickImage(
                           source: ImageSource.gallery);
                       setState(() {
-                        _logoImage = new Image.file(_imageFile);
+                        _logoImage = new Image.file(_imageLogoFile);
                         _logoBoxDecoration = new BoxDecoration(
                             color: new Color.fromRGBO(243, 243, 243, 1.0),
                             border:
@@ -144,24 +150,45 @@ class AddingInfoPageState extends State<AddingInfoPage> {
                 ),
                 padding: new EdgeInsets.fromLTRB(100.0, 16.0, 100.0, 16.0),
                 onPressed: () async {
-//                  //creating random number
-//                  int random = new Random().nextInt(1000000);
-//
-//                  StorageReference ref =
-//                  FirebaseStorage.instance.ref().child("image_$random.jpg");
-//
-//                  StorageUploadTask uploadTask = ref.put(_imageFile);
-//                  _downloadUrl = (await uploadTask.future).downloadUrl;
-//
-//                  final DocumentReference document = messages.document(random.toString());
-//                  document.setData(<String, dynamic>{
-//                    'message': 'Hello world!',
-//                    'photo_url': _downloadUrl.toString()
-//                  });
+                  //creating random number
+                  int random = new Random().nextInt(1000000);
 
-                  Navigator.of(context).push(new MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          new SuccessfullyAddedPage()));
+                  StorageReference ref = FirebaseStorage.instance.ref();
+
+                  StorageUploadTask uploadTask =
+                      ref.child("image_cover_$random.jpg").put(_imageCoverFile);
+                  _downloadCoverUrl = (await uploadTask.future).downloadUrl;
+
+                  uploadTask =
+                      ref.child("image_logo_$random.jpg").put(_imageLogoFile);
+                  _downloadLogoUrl = (await uploadTask.future).downloadUrl;
+
+                  final DocumentReference document =
+                      await shops.add(<String, dynamic>{
+                    'logo_url': _downloadLogoUrl.toString(),
+                    'cover_url': _downloadCoverUrl.toString(),
+                    'name': "ONE:SHOP",
+                    'about': "Bla, bla, bla....",
+                  });
+
+                  Firestore.instance
+                      .collection('users')
+                      .document(_currentUserID)
+                      .updateData(
+                        <String, dynamic>{
+                          'shop_ref': document.documentID,
+                        }
+                  );
+
+                  //Pushing data to internal memory
+                  _settingPreferenceData(document.documentID);
+
+                  //Pop other screens
+                  while(Navigator.of(context).canPop()) {
+                    Navigator.of(context).pop();
+                  }
+
+                  Navigator.of(context).pushNamed('/successfully_added');
                 },
                 color: Colors.black,
                 pressedOpacity: 0.5,
@@ -170,5 +197,10 @@ class AddingInfoPageState extends State<AddingInfoPage> {
             )
           ]),
     );
+  }
+
+  Future _settingPreferenceData(String shopID) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("shopID", shopID);
   }
 }
