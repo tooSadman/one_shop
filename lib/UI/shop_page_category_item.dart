@@ -11,6 +11,7 @@ class ShopCategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
+      color: Colors.white,
       padding: new EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 5.0),
       child: new Column(children: <Widget>[
         new Container(

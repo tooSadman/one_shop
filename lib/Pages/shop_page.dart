@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:core';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:project_f/UI/shop_page_category_item.dart';
 
+import 'package:project_f/UI/shop_page_category_item.dart';
 import './registration_page.dart';
 
 enum AppBarBehavior { normal, pinned, floating, snapping }
@@ -20,8 +20,10 @@ class ShopPageState extends State<ShopPage> {
 
   AppBarBehavior _appBarBehavior = AppBarBehavior.pinned;
 
+  var _shopItemList = new List<Widget>();
+
   HashMap<int, String> map = new HashMap<int, String>();
-  int index = 1;
+  int index = 0;
 
   bool _notification = false;
 
@@ -62,16 +64,103 @@ class ShopPageState extends State<ShopPage> {
         });
   }
 
+  StaggeredTile _newStaggeredTile(int index) {
+    switch (index) {
+
+      //shop info
+      case 0:
+        ++index;
+        return new StaggeredTile.count(4, 0.5);
+
+        break;
+      // product categories
+      case 1:
+        ++index;
+        return new StaggeredTile.count(4, 1.35);
+
+        break;
+
+      //products
+      default:
+        ++index;
+        return new StaggeredTile.count(2, index > 4 ? index - 3 : index + 1);
+
+        break;
+    }
+  }
+
+  List<StaggeredTile> _allNewStaggeredTiles(int index) {
+    var _staggeredTilesList = new List<StaggeredTile>();
+    for (int i = 0; i < index; i++) {
+      // index - number of products
+      _staggeredTilesList.add(_newStaggeredTile(i));
+    }
+    return _staggeredTilesList;
+  }
+
+  // this method creates new shop's product widget with given
+  Widget _newShopItem(String _shopItemImage) {
+    Widget _shopItem = new GestureDetector(
+      child: new Container(
+        decoration: new BoxDecoration(
+            borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
+            border: new Border.all(
+                color: new Color.fromRGBO(149, 152, 154, 0.15), width: 2.0),
+            image: new DecorationImage(
+              image: new AssetImage(_shopItemImage),
+              fit: BoxFit.cover,
+            ),
+            color: Colors.white),
+      ),
+      onTap: () => {},
+    );
+
+    return _shopItem;
+  }
+
+  // this method adds shop's  product to the given list
+  void _addTOShopItemsList(Widget widget, List<Widget> shopList) {
+    shopList.add(widget);
+  }
+
   @override
   Widget build(BuildContext context) {
-    map.putIfAbsent(3, () => "images/postcard.png");
-    map.putIfAbsent(4, () => "images/gus.png");
-    map.putIfAbsent(5, () => "images/socks.png");
-    map.putIfAbsent(6, () => "images/sence.png");
-    map.putIfAbsent(7, () => "images/box_image_1.png");
-    map.putIfAbsent(8, () => "images/girl.png");
-    map.putIfAbsent(9, () => "images/box_image_2.png");
-    map.putIfAbsent(10, () => "images/postcard.png");
+    // adding initial products to list here
+    _shopItemList.addAll([
+      new Container(
+          color: Colors.white,
+          padding: new EdgeInsets.symmetric(horizontal: 30.0),
+          child: new InkWell(
+              child: new Text(
+                'Незалежний бренд аксесуарів для тих, хто сприймає життя як справжню пригоду!',
+                textAlign: TextAlign.center,
+              ),
+              onTap: () => _showModalSheet())),
+      // Categories
+      new SizedBox(
+          height: 130.0,
+          child: new ListView(
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
+              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
+              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
+              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
+              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
+              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
+              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
+              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
+              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
+            ],
+          )),
+      _newShopItem("images/gus.png"),
+      _newShopItem("images/socks.png"),
+      _newShopItem("images/sence.png"),
+      _newShopItem("images/box_image_1.png"),
+      _newShopItem("images/girl.png"),
+      _newShopItem("images/box_image_2.png"),
+    ]);
+
+    index = _shopItemList.length;
 
     return new Theme(
         data: new ThemeData(
@@ -137,80 +226,12 @@ class ShopPageState extends State<ShopPage> {
               ),
             ),
           ),
-          
-          new SliverFillRemaining(
-            child: new StaggeredGridView.countBuilder(
+          new SliverStaggeredGrid.count(
               crossAxisCount: 4,
-              itemCount: 10,
-              padding: new EdgeInsets.all(8.0),
-              itemBuilder: (BuildContext context, int index) {
-                switch (index) {
-                  case 0:
-                    return new Container(
-                        color: Colors.white,
-                        padding: new EdgeInsets.symmetric(horizontal: 30.0),
-                        child: new InkWell(
-                            child: new Text(
-                              'Незалежний бренд аксесуарів для тих, хто сприймає життя як справжню пригоду!',
-                              textAlign: TextAlign.center,
-                            ),
-                            onTap: () => _showModalSheet()));
-                    break;
-
-                  case 1:
-                    return new SizedBox(
-                        height: 130.0,
-                        child: new ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: <Widget>[
-                            new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-                            new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-                            new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-                            new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-                            new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-                            new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-                            new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-                            new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-                          ],
-                        ));
-                    break;
-                  default:
-                    return new GestureDetector(
-                      child: new Container(
-                        decoration: new BoxDecoration(
-                            borderRadius:
-                                new BorderRadius.all(new Radius.circular(10.0)),
-                            border: new Border.all(
-                                color: new Color.fromRGBO(149, 152, 154, 0.15),
-                                width: 2.0),
-                            image: new DecorationImage(
-                              image: new AssetImage(map[++index]),
-                              fit: BoxFit.cover,
-                            ),
-                            color: Colors.white),
-                      ),
-                      onTap: () => {},
-                    );
-                }
-              },
-              staggeredTileBuilder: (int index) {
-                switch (index) {
-                  case 0:
-                    return new StaggeredTile.count(4, 1);
-                    break;
-                  case 1:
-                    return new StaggeredTile.count(4, 2);
-                    break;
-                  default:
-                    return new StaggeredTile.count(
-                        2, index > 4 ? index - 3 : index + 1);
-                    break;
-                }
-              },
-              mainAxisSpacing: 8.0,
-              crossAxisSpacing: 8.0,
-            ),
-          ),
+              mainAxisSpacing: 0.0,
+              crossAxisSpacing: 4.0,
+              children: _shopItemList,
+              staggeredTiles: _allNewStaggeredTiles(index)),
         ])));
   }
 }
