@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TitledTextInShopCreating extends StatelessWidget {
-  String _title;
-  String _text;
+  final String _title;
+  final String _text;
 
   TitledTextInShopCreating(this._title, this._text);
 

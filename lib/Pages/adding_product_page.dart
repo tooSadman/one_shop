@@ -15,9 +15,9 @@ class AddingProductPage extends StatefulWidget {
 }
 
 class AddingProductPageState extends State<AddingProductPage> {
-  Image _product_image = new Image.asset("images/gus.png", width: 300.0);
-  Uri _downloadUrl = null;
-  File _imageFile = null;
+  Image _productImage = new Image.asset("images/gus.png", width: 300.0);
+  Uri _downloadUrl;
+  File _imageFile;
   CollectionReference get messages => Firestore.instance.collection('shops/dvjxfkTLXsZtRKhbxkYA/goods');
 
   @override
@@ -42,7 +42,7 @@ class AddingProductPageState extends State<AddingProductPage> {
         children: <Widget>[
           new Container(
               padding: new EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
-              child: _product_image),
+              child: _productImage),
           new Column(
             children: <Widget>[
               new SettingsItem(
@@ -53,7 +53,7 @@ class AddingProductPageState extends State<AddingProductPage> {
                   _imageFile =
                       await ImagePicker.pickImage(source: ImageSource.gallery);
                   setState(() {
-                    _product_image =
+                    _productImage =
                         new Image.file(_imageFile, width: 200.0);
                   });
                 },
