@@ -13,7 +13,7 @@ class OrderItem extends StatelessWidget {
         padding: new EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0),
         child: new TextField(
           // controller: _controller,
-          decoration: InputDecoration(
+          decoration: new InputDecoration(
             labelText: _field_title,
             border: const OutlineInputBorder(),
           ),
