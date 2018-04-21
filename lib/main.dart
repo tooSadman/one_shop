@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'package:project_f/Pages/adding_product_page.dart';
 import 'package:project_f/Pages/creating_shop_intro/adding_images.dart';
 import 'package:project_f/Pages/creating_shop_intro/instagram_integration.dart';
 import 'package:project_f/Pages/creating_shop_intro/intro_creating.dart';
 import 'package:project_f/Pages/creating_shop_intro/succesfully_added.dart';
+import 'package:project_f/Pages/shop_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -34,12 +36,13 @@ class MyApp extends StatelessWidget {
       ),
       home: _chooseStartingPage(),
       routes: <String, WidgetBuilder> {
-        '/shop_page': (BuildContext context) => null,
+        '/shop_page': (BuildContext context) => new ShopPage(),
         '/intro_creating' : (BuildContext context) => new IntroCreatingShopPage(),
         '/instagram_integration' : (BuildContext context) => new InstagramIntegrationPage(),
         '/add_images' : (BuildContext context) => new AddingInfoPage(),
         '/successfully_added' : (BuildContext context) => new SuccessfullyAddedPage(),
         '/home_page' : (BuildContext context) => new HomePage(),
+        '/adding_product' : (BuildContext context) => new AddingProductPage(),
       },
     );
   }

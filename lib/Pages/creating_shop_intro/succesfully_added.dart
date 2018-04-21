@@ -38,7 +38,7 @@ class SuccessfullyAddedPage extends StatelessWidget {
               padding: new EdgeInsets.fromLTRB(100.0, 16.0, 100.0, 16.0),
               onPressed: () {
                 _settingPreferenceData();
-                return Navigator.of(context).pushNamed("/home_page");
+                return Navigator.of(context).pushNamed("/shop_page");
               },
               color: Colors.black,
               pressedOpacity: 0.5,

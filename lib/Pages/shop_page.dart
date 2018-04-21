@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:core';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:project_f/UI/shop_page_category_item.dart';
 
-import './UI/shop_page_category_item.dart';
 import './registration_page.dart';
 
 enum AppBarBehavior { normal, pinned, floating, snapping }

@@ -56,7 +56,7 @@ class AddingProductPageState extends State<AddingProductPage> {
                 "",
                 () async {
                   _imageFile =
-                      await ImagePicker.pickImage(source: ImageSource.gallery);
+                      await ImagePicker.pickImage(source: ImageSource.gallery, maxWidth: 850.0);
                   setState(() {
                     _productImage =
                         new Image.file(_imageFile, width: 200.0);
@@ -89,8 +89,10 @@ class AddingProductPageState extends State<AddingProductPage> {
                         'який запалює бенгальскі вогники. Вже будучи дорослим і зустрівши цього велетня у Гімалаях, він зрозумів свою помилку: не було ні гірлянд, ні вогників… була тільки необхідність бігти чимдуж.'
                         ' Але Семмі таки встиг замалювати тигра, щоб назавжди запам’ятати той момент прозріння.',
                     'photo_url': _downloadUrl.toString(),
-                    'shop': '/shops/' + shopID
+                    'shop': Firestore.instance.document("/shops/" + shopID)
                   });
+
+                  Navigator.of(context).pop();
 
                 },
               ),

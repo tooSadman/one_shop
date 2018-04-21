@@ -144,7 +144,9 @@ class ProfilePageState extends State<ProfilePage> {
                               ? Navigator
                                   .of(context)
                                   .pushNamed("/intro_creating")
-                              : null,
+                              : Navigator
+                              .of(context)
+                              .pushNamed("/shop_page"),
                           pressedOpacity: 0.5,
                         ),
                       )),
