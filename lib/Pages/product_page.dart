@@ -33,8 +33,13 @@ class ProductPageState extends State<StatefulWidget> {
   ProductPageState(this.documentID);
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     _settingData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return new Theme(
         data: new ThemeData(
           brightness: Brightness.light,
@@ -181,8 +186,8 @@ class ProductPageState extends State<StatefulWidget> {
                       ),
                     ),
                     confirmAddToCart,
-                    textForProduct,
-                    new BrandBox(_logoImageUrl, _shopAbout)
+                    _textForProduct,
+                    new BrandBox(_logoImageUrl, _shopAbout, _shopName)
                   ],
                 ))
               ],
@@ -204,13 +209,7 @@ class ProductPageState extends State<StatefulWidget> {
             textAlign: TextAlign.center,
           )));
 
-  Widget textForProduct = new Container(
-    padding: new EdgeInsets.all(16.0),
-    child: new Text(
-      _productAbout,
-      style: new TextStyle(fontSize: 13.0),
-    ),
-  );
+  Widget _textForProduct = new Container();
 
   Future _settingData() async {
     DocumentReference documentReference =
@@ -223,17 +222,31 @@ class ProductPageState extends State<StatefulWidget> {
             height: 350.0,
           )
         : null;
-    _productName = document["product_name"];
-    _productAbout = document["product_about"];
+
+    setState(() {
+      _productName = document["product_name"];
+      _productAbout = document["product_about"];
+      _textForProduct = new Container(
+        padding: new EdgeInsets.all(16.0),
+        child: new Text(
+          _productAbout,
+          style: new TextStyle(fontSize: 13.0),
+        ),
+      );
+    });
+
 
     documentReference = document["shop"];
     document = await documentReference.get();
 
-    _logoImageUrl = document["logo_url"];
-    _shopName = document["name"];
-    _shopAbout = document["about"];
+    setState(() {
+      _logoImageUrl = document["logo_url"];
+      _shopName = document["name"];
+      _shopAbout = document["about"];
+    });
 
-    setState(() {});
+
+
   }
 
   @override

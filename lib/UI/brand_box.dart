@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class BrandBox extends StatelessWidget {
   String _logoUrl;
   String _shopAbout;
+  String _shopName;
 
-  BrandBox(this._logoUrl, this._shopAbout);
+  BrandBox(this._logoUrl, this._shopAbout, this._shopName);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class BrandBox extends StatelessWidget {
                             : new Container(),
                       ),
                       new Text(
-                        "Sammy Icon",
+                        _shopName,
                         style: new TextStyle(
                             fontSize: 14.0, fontWeight: FontWeight.bold),
                       )
