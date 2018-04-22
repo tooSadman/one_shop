@@ -130,7 +130,7 @@ class AddProductPageState extends State<AddProductPage> {
             )));
 
     Widget previewButton = new Container(
-        padding: new EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 40.0),
+        margin: new EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 40.0),
         foregroundDecoration: new BoxDecoration(
                         border: new Border.all(width: 1.0, color: Colors.black),
                         borderRadius: new BorderRadius.circular(5.0)),

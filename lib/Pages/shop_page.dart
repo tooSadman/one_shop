@@ -142,14 +142,10 @@ class ShopPageState extends State<ShopPage> {
           child: new ListView(
             scrollDirection: Axis.horizontal,
             children: <Widget>[
-              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
-              new ShopCategoryItem('images/wr.jpg', 'Чоловіче'),
+              new ShopCategoryItem('images/hipster.png', 'Категорія'),
+              new ShopCategoryItem('images/hipster.png', 'Категорія'),
+              new ShopCategoryItem('images/hipster.png', 'Категорія'),
+              new ShopCategoryItem('images/hipster.png', 'Категорія'),
             ],
           )),
       _newShopItem("images/gus.png"),
@@ -194,7 +190,7 @@ class ShopPageState extends State<ShopPage> {
                     new Container(
                         padding: new EdgeInsets.only(bottom: 125.0),
                         child: new Image.asset(
-                          'images/background_brand.jpg',
+                          'images/3.0x/box_image_3.png',
                           fit: BoxFit.cover,
                         ))
                   ]),
@@ -208,7 +204,7 @@ class ShopPageState extends State<ShopPage> {
                           decoration: new BoxDecoration(
                             color: const Color(0xff7c94b6),
                             image: new DecorationImage(
-                              image: new AssetImage('images/postcard.png'),
+                              image: new AssetImage('images/sammy_icon.png'),
                               fit: BoxFit.fill,
                             ),
                             borderRadius: new BorderRadius.all(
