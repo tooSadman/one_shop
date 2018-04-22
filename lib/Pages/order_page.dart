@@ -55,9 +55,9 @@ class OrderPageState extends State<OrderPage> {
       padding: new EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 7.0),
       child: new Column(
         children: <Widget>[
-          new OrderItem("ПІБ одержувача"),
-          new OrderItem("Email"),
-          new OrderItem("Номер телефону"),
+          new OrderItem("ПІБ одержувача", TextInputType.text),
+          new OrderItem("Email", TextInputType.emailAddress),
+          new OrderItem("Номер телефону", TextInputType.phone),
         ],
       ),
     );
@@ -103,15 +103,14 @@ class OrderPageState extends State<OrderPage> {
           )),
     );
 
-
     Widget deliveyTextInfo = new Container(
       color: Colors.white,
       padding: new EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 15.0),
       child: new Column(
         children: <Widget>[
-          new OrderItem("Населений пункт"),
-          new OrderItem("Адреса доставки"),
-          new OrderItem("Особливі побажання"),
+          new OrderItem("Населений пункт", TextInputType.text),
+          new OrderItem("Адреса доставки", TextInputType.text),
+          new OrderItem("Особливі побажання", TextInputType.text),
         ],
       ),
     );

@@ -34,7 +34,7 @@ class RegistrationPageState extends State<RegistrationPage> {
       padding: new EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 7.0),
       child: new Column(
         children: <Widget>[
-          new OrderItem("Повне ім'я"),
+          new OrderItem("Повне ім'я", TextInputType.text),
          /* new Container(
       color: Colors.white,
       padding: new EdgeInsets.fromLTRB(41.0, 20.0, 41.0, 7.0),
@@ -63,8 +63,8 @@ class RegistrationPageState extends State<RegistrationPage> {
             }).toList(),
           )),
     ),*/
-          new OrderItem("Email"),
-          new OrderItem("Номер телефону"),
+          new OrderItem("Email", TextInputType.emailAddress),
+          new OrderItem("Номер телефону", TextInputType.phone),
         ],
       ),
     );
