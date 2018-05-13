@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_f/UI/order_item.dart';
+import '../UI/order_item.dart';
 
 class AddProductPage extends StatefulWidget {
   @override
@@ -14,10 +14,22 @@ class AddProductPageState extends State<AddProductPage> {
     'Mykyta zaebal'
   ];
 
+  List<String> _addedPhotos = <String>[
+    'images/wr.jpg',
+    'images/wr.jpg',
+    'images/wr.jpg',
+    'images/wr.jpg',
+    'images/wr.jpg',
+    'images/wr.jpg'
+  ];
+
   String _product = 'Cosmetics';
+  bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
+    final Orientation orientation = MediaQuery.of(context).orientation;
+
     Widget productInfo = new Container(
       color: Colors.white,
       padding: new EdgeInsets.fromLTRB(10.0, 20.0, 10.0, 7.0),
@@ -114,6 +126,34 @@ class AddProductPageState extends State<AddProductPage> {
           ],
         ));
 
+    Widget addedPhotosExpansionPanel = new Container(
+        padding: new EdgeInsets.symmetric(horizontal: 20.0),
+        child: new ExpansionTile(
+          initiallyExpanded: true,
+          title: new Text(
+            "Додані фото",
+            textAlign: TextAlign.center,
+            style: new TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          children: <Widget>[
+            new GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: (orientation == Orientation.portrait) ? 3 : 3,
+                mainAxisSpacing: 10.0,
+                crossAxisSpacing: 10.0,
+                padding: const EdgeInsets.all(4.0),
+                childAspectRatio:
+                    (orientation == Orientation.portrait) ? 1.0 : 1.3,
+                children: _addedPhotos.map((String url) {
+                  return new GridTile(
+                      child: new Image.asset(url, fit: BoxFit.cover));
+                }).toList()),
+          ],
+        ));
+
     Widget confirmAddProductButton = new Container(
         padding: new EdgeInsets.fromLTRB(30.0, 25.0, 30.0, 8.0),
         child: new MaterialButton(
@@ -132,8 +172,8 @@ class AddProductPageState extends State<AddProductPage> {
     Widget previewButton = new Container(
         margin: new EdgeInsets.fromLTRB(30.0, 8.0, 30.0, 40.0),
         foregroundDecoration: new BoxDecoration(
-                        border: new Border.all(width: 1.0, color: Colors.black),
-                        borderRadius: new BorderRadius.circular(5.0)),
+            border: new Border.all(width: 1.0, color: Colors.black),
+            borderRadius: new BorderRadius.circular(5.0)),
         child: new MaterialButton(
             height: 50.0,
             color: Colors.white,
@@ -166,6 +206,7 @@ class AddProductPageState extends State<AddProductPage> {
           productInfo,
           addPhotoTitle,
           addPhotoButtons,
+          addedPhotosExpansionPanel,
           confirmAddProductButton,
           previewButton
         ]));
