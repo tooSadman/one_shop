@@ -12,7 +12,7 @@ class ShopCategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       color: Colors.white,
-      padding: new EdgeInsets.fromLTRB(8.0, 15.0, 8.0, 5.0),
+      padding: new EdgeInsets.fromLTRB(6.0, 15.0, 6.0, 5.0),
       child: new Column(children: <Widget>[
         new Container(
           height: 70.0,
@@ -23,9 +23,9 @@ class ShopCategoryItem extends StatelessWidget {
               image: new AssetImage(_category_image),
               fit: BoxFit.fill,
             ),
-            borderRadius: new BorderRadius.all(new Radius.circular(100.0)),
+            borderRadius: new BorderRadius.all(new Radius.circular(60.0)),
             border: new Border.all(
-              color: Colors.black,
+              color: Colors.black45,
               width: 1.0,
             ),
           ),

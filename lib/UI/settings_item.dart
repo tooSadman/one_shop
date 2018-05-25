@@ -35,7 +35,7 @@ class SettingsItem extends StatelessWidget {
                             child: new Text(
                               _itemTitle,
                               style: new TextStyle(
-                                  fontSize: 20.0, color: Colors.black),
+                                  fontSize: 18.0, color: Colors.black),
                             )),
                         new Expanded(
                             child: new Text(

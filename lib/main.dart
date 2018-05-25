@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:project_f/Pages/add_new_product_page.dart';
 import 'package:project_f/Pages/adding_product_page.dart';
 import 'package:project_f/Pages/creating_shop_intro/adding_images.dart';
 import 'package:project_f/Pages/creating_shop_intro/instagram_integration.dart';

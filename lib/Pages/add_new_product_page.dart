@@ -10,8 +10,7 @@ class AddProductPageState extends State<AddProductPage> {
   List<String> _allCategories = <String>[
     'Cosmetics',
     'Clothes',
-    'Stashkiv pider',
-    'Mykyta zaebal'
+    'Other'
   ];
 
   List<String> _addedPhotos = <String>[

@@ -139,7 +139,7 @@ class ProfilePageState extends State<ProfilePage> {
                                 color: Colors.black),
                           ),
                           padding:
-                              new EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 14.0),
+                              new EdgeInsets.fromLTRB(10.0, 14.0, 10.0, 14.0),
                           onPressed: () => !_shopIsCreated
                               ? Navigator
                                   .of(context)

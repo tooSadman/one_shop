@@ -142,10 +142,11 @@ class ShopPageState extends State<ShopPage> {
           child: new ListView(
             scrollDirection: Axis.horizontal,
             children: <Widget>[
-              new ShopCategoryItem('images/hipster.png', 'Категорія'),
-              new ShopCategoryItem('images/hipster.png', 'Категорія'),
-              new ShopCategoryItem('images/hipster.png', 'Категорія'),
-              new ShopCategoryItem('images/hipster.png', 'Категорія'),
+              new ShopCategoryItem('images/dad.png', 'Чоловіче'),
+              new ShopCategoryItem('images/girl_category.png', 'Жіноче'),
+              new ShopCategoryItem('images/socks_category.png', 'Шкарпетки'),
+              new ShopCategoryItem('images/good_girl.png', 'Білизна'),
+              new ShopCategoryItem('images/hat.png', 'Шапки'),
             ],
           )),
       _newShopItem("images/gus.png"),
@@ -172,9 +173,8 @@ class ShopPageState extends State<ShopPage> {
             pinned: true,
             leading: new IconButton(
               alignment: Alignment.center,
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () => Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) => new RegistrationPage())),
+              icon: const Icon(Icons.arrow_back, color: Colors.white,),
+              onPressed: () => Navigator.of(context).pushNamed("/home_page"),
             ),
             actions: <Widget>[],
             flexibleSpace: new FlexibleSpaceBar(
@@ -190,7 +190,7 @@ class ShopPageState extends State<ShopPage> {
                     new Container(
                         padding: new EdgeInsets.only(bottom: 125.0),
                         child: new Image.asset(
-                          'images/3.0x/box_image_3.png',
+                          'images/cover_semy.png',
                           fit: BoxFit.cover,
                         ))
                   ]),
@@ -204,7 +204,7 @@ class ShopPageState extends State<ShopPage> {
                           decoration: new BoxDecoration(
                             color: const Color(0xff7c94b6),
                             image: new DecorationImage(
-                              image: new AssetImage('images/sammy_icon.png'),
+                              image: new AssetImage('images/samy_ico.png'),
                               fit: BoxFit.fill,
                             ),
                             borderRadius: new BorderRadius.all(
@@ -224,8 +224,8 @@ class ShopPageState extends State<ShopPage> {
           ),
           new SliverStaggeredGrid.count(
               crossAxisCount: 4,
-              mainAxisSpacing: 0.0,
-              crossAxisSpacing: 4.0,
+              mainAxisSpacing: 6.0,
+              crossAxisSpacing: 6.0,
               children: _shopItemList,
               staggeredTiles: _allNewStaggeredTiles(index)),
         ])));
