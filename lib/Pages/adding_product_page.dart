@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:project_f/UI/order_item.dart';
 import 'package:project_f/UI/settings_item.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,10 +21,21 @@ class AddingProductPage extends StatefulWidget {
 }
 
 class AddingProductPageState extends State<AddingProductPage> {
-  Image _productImage = new Image.asset("images/gus.png", width: 300.0);
+  Image _productImage = new Image.asset("images/gus.png", height: 300.0);
   Uri _downloadUrl;
   File _imageFile;
+  TextEditingController _about = new TextEditingController();
+  TextEditingController _price = new TextEditingController();
+  TextEditingController _name = new TextEditingController();
 
+  List<String> _allCategories = <String>[
+    'Cosmetics',
+    'Clothes',
+    'Hand-made-thing',
+    "Toy(s)",
+    'Other'
+  ];
+  String _product = 'Cosmetics';
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +57,48 @@ class AddingProductPageState extends State<AddingProductPage> {
       ),
       body: new ListView(
         children: <Widget>[
-          new Container(
-              padding: new EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
-              child: _productImage),
           new Column(
             children: <Widget>[
+              new OrderItem("Назва товару", TextInputType.text, textController: _name),
+              new Container(
+                color: Colors.white,
+                padding: new EdgeInsets.fromLTRB(30.0, 15.0, 30.0, 15.0),
+                child: new InputDecorator(
+                    decoration: const InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: 'Категорія',
+                      hintText: 'Виберіть вашу категорію',
+                    ),
+                    //isEmpty: _region == null,
+                    child: new DropdownButton<String>(
+                      iconSize: 0.0,
+                      style: new TextStyle(fontSize: 17.0, color: Colors.black),
+                      value: _product,
+                      isDense: true,
+                      onChanged: (String newValue) {
+                        setState(() {
+                          _product = newValue;
+                        });
+                      },
+                      items: _allCategories.map((String value) {
+                        return new DropdownMenuItem<String>(
+                          value: value,
+                          child: new Text(value),
+                        );
+                      }).toList(),
+                    )),
+              ),
+              new OrderItem("Короткий опис", TextInputType.text, textController: _about,),
+              new OrderItem("Ціна в гривнях", TextInputType.number, textController: _price,),
+              new OrderItem("#Теги", TextInputType.text),
+              new OrderItem("Розміри (не обов'язково)", TextInputType.text),
+              new OrderItem("Кольори (не обов'язково)", TextInputType.text),
+              new Container(
+                  padding: new EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
+                  child: _productImage),
               new SettingsItem(
-                Icons.image,
-                "Додати товар",
+                Icons.add,
+                "Додати фото",
                 "",
                 () async {
                   _imageFile =
@@ -64,7 +110,7 @@ class AddingProductPageState extends State<AddingProductPage> {
                 },
               ),
               new SettingsItem(
-                Icons.image,
+                Icons.done,
                 "Готово",
                 "зберегти зміни",
                 () async {
@@ -84,10 +130,9 @@ class AddingProductPageState extends State<AddingProductPage> {
 
 
                   final DocumentReference document = await goodsReference.add(<String, dynamic>{
-                    'product_name' : 'Hello world!',
-                    'product_about': 'Коли Семмі був маленьким, він думав, що бенгальский тигр – це тигр, '
-                        'який запалює бенгальскі вогники. Вже будучи дорослим і зустрівши цього велетня у Гімалаях, він зрозумів свою помилку: не було ні гірлянд, ні вогників… була тільки необхідність бігти чимдуж.'
-                        ' Але Семмі таки встиг замалювати тигра, щоб назавжди запам’ятати той момент прозріння.',
+                    'product_name' : _name.text,
+                    'product_price' : _price.text,
+                    'product_about': _about.text,
                     'photo_url': _downloadUrl.toString(),
                     'shop': Firestore.instance.document("/shops/" + shopID)
                   });
@@ -101,6 +146,15 @@ class AddingProductPageState extends State<AddingProductPage> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    _price.dispose();
+    _name.dispose();
+    _about.dispose();
+    super.dispose();
   }
 
 

@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import '../UI/order_item.dart';
 
 class AddProductPage extends StatefulWidget {
@@ -7,9 +10,14 @@ class AddProductPage extends StatefulWidget {
 }
 
 class AddProductPageState extends State<AddProductPage> {
+  File _imageFile;
+  Image _productImage;
+
   List<String> _allCategories = <String>[
     'Cosmetics',
     'Clothes',
+    'Hand-made-thing',
+    "Toy(s)",
     'Other'
   ];
 
@@ -209,5 +217,15 @@ class AddProductPageState extends State<AddProductPage> {
           confirmAddProductButton,
           previewButton
         ]));
+  }
+  addImage() {
+    () async {
+      _imageFile =
+      await ImagePicker.pickImage(source: ImageSource.gallery, maxWidth: 850.0);
+      setState(() {
+        _productImage =
+        new Image.file(_imageFile, width: 200.0);
+      });
+    };
   }
 }
