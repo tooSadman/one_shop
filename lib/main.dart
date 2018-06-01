@@ -5,6 +5,7 @@ import 'package:project_f/Pages/creating_shop_intro/adding_images.dart';
 import 'package:project_f/Pages/creating_shop_intro/instagram_integration.dart';
 import 'package:project_f/Pages/creating_shop_intro/intro_creating.dart';
 import 'package:project_f/Pages/creating_shop_intro/succesfully_added.dart';
+import 'package:project_f/Pages/payment/succesfull_payment.dart';
 import 'package:project_f/Pages/shop_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/successfully_added' : (BuildContext context) => new SuccessfullyAddedPage(),
         '/home_page' : (BuildContext context) => new HomePage(),
         '/adding_product' : (BuildContext context) => new AddingProductPage(),
+        '/successfully' : (BuildContext context) => new SuccessfullyPaymentPage(),
       },
     );
   }

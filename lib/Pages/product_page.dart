@@ -31,6 +31,8 @@ class ProductPageState extends State<StatefulWidget> {
 
   var _brandBox;
 
+  bool _isBookmarked = false;
+
   ProductPageState(this.documentID);
 
   @override
@@ -58,9 +60,13 @@ class ProductPageState extends State<StatefulWidget> {
                   pinned: true,
                   actions: <Widget>[
                     new IconButton(
-                      icon: const Icon(Icons.create),
+                      icon: _isBookmarked ? new Icon(Icons.bookmark) : new Icon(Icons.bookmark_border),
                       tooltip: 'Edit',
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          _isBookmarked = !_isBookmarked;
+                        });
+                      },
                     ),
                   ],
                   flexibleSpace: new FlexibleSpaceBar(

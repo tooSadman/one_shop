@@ -120,7 +120,9 @@ class OrderPageState extends State<OrderPage> {
         child: new MaterialButton(
             height: 50.0,
             color: Colors.black,
-            onPressed: () => {},
+            onPressed: () {
+              return Navigator.of(context).pushNamed('/successfully_added');
+            },
             child: new Text(
               "ПРОДОВЖИТИ",
               style: new TextStyle(
@@ -131,28 +133,47 @@ class OrderPageState extends State<OrderPage> {
             )));
 
     return new Scaffold(
-        appBar: new AppBar(
+      appBar: new AppBar(
           elevation: 0.0,
           title: new Text("Оформлення замовлення",
-              style: new TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              )),
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          leading: new IconButton(
+          style: new TextStyle(
+          fontWeight:
+          FontWeight.bold,
             color: Colors.black,
-            icon: new Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ),
-        body: new ListView(children: [
-          titleSection,
-          customerInfo,
-          deliveryInfoTitle,
-          deliveryInfoRegion,
-          deliveyTextInfo,
-          confirmOrderButton
-        ]));
+          )),
+      centerTitle: true,
+      backgroundColor: Colors
+          .white,
+      leading: new IconButton(
+        color:
+        Colors.black,
+        icon: new Icon(Icons
+            .arrow_back),
+        onPressed: () =>
+            Navigator
+                .pop(context),
+      ),
+    ),body
+        :
+    new
+    ListView
+    (
+    children
+        :
+    [
+    titleSection
+    ,
+    customerInfo
+    ,
+    deliveryInfoTitle
+    ,
+    deliveryInfoRegion
+    ,
+    deliveyTextInfo
+    ,
+    confirmOrderButton
+    ]
+    )
+    );
   }
 }
