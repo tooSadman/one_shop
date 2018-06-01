@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:project_f/Pages/add_new_product_page.dart';
 import 'package:project_f/Pages/adding_product_page.dart';
 import 'package:project_f/Pages/creating_shop_intro/adding_images.dart';
 import 'package:project_f/Pages/creating_shop_intro/instagram_integration.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
       ),
       home: _chooseStartingPage(),
       routes: <String, WidgetBuilder> {
-        '/shop_page': (BuildContext context) => new ShopPage(),
+        '/shop_page': (BuildContext context) => new ShopPage(null),
         '/intro_creating' : (BuildContext context) => new IntroCreatingShopPage(),
         '/instagram_integration' : (BuildContext context) => new InstagramIntegrationPage(),
         '/add_images' : (BuildContext context) => new AddingInfoPage(),

@@ -49,6 +49,13 @@ flutter:
       - images/sammy_icon.png
       - images/hart.png
       - images/hipster.png
+      - images/dad.png
+      - images/girl_category.png
+      - images/hat.png
+      - images/good_girl.png
+      - images/socks_category.png
+      - images/samy_ico.png
+      - images/cover_semy.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -1,23 +1,30 @@
+import 'dart:async';
 import 'dart:collection';
 
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:core';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:project_f/UI/shop_page_category_item.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './registration_page.dart';
 
 enum AppBarBehavior { normal, pinned, floating, snapping }
 
 class ShopPage extends StatefulWidget {
+  String _documentID;
+
+  ShopPage(this._documentID);
+
   @override
-  State createState() => new ShopPageState();
+  State createState() => new ShopPageState(_documentID);
 }
 
 class ShopPageState extends State<ShopPage> {
   //static final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   AppBarBehavior _appBarBehavior = AppBarBehavior.pinned;
 
   var _shopItemList = new List<Widget>();
@@ -26,15 +33,26 @@ class ShopPageState extends State<ShopPage> {
   int index = 0;
 
   bool _notification = false;
+  String _documentID;
 
   String _shopHistory =
       'Начав свою историю в 2013 году, сегодня Sammy Icon - полноценный бренд аксессуаров, известный в первую очередь благодаря своим ярким носкам с разнообразием оригинальных расцветок и паттернов. Работая над каждой коллекцией, мы остаемся верны своему главному принципу - сделать яркими привычные повседневные аксессуары. На нашем счету уже больше 200 оригинальных дизайнов, а их количество непременно растет от сезона к сезону. Продолжая движение вперед, мы постоянно расширяем линейку товаров, придавая утилитарным предметам дух авантюризма и приключений. Продукцию Sammy Icon сегодня можно встретить более чем в 20-и странах мира, среди которых такие лидеры мировой индустрии моды как США, Канада, Великобритания, Италия, Германия, Япония, Китай, Россия и другие. За последние пару лет мы успели побывать на крупнейших мировых трейд шоу: от NY Now в США до главного европейского события в мире мужской моды - Pitty Uomo';
 
-  /*@override
+  Image _logoImage;
+
+  Image _coverImage;
+
+  String _about = "";
+
+  String _name = "";
+
+  ShopPageState(this._documentID);
+
+  @override
   void initState() {
     super.initState();
-  
-  }*/
+    _settingData();
+  }
 
   void changeNotificationStatus(bool status) {
     status == true
@@ -66,7 +84,6 @@ class ShopPageState extends State<ShopPage> {
 
   StaggeredTile _newStaggeredTile(int index) {
     switch (index) {
-
       //shop info
       case 0:
         ++index;
@@ -132,7 +149,7 @@ class ShopPageState extends State<ShopPage> {
           padding: new EdgeInsets.symmetric(horizontal: 30.0),
           child: new InkWell(
               child: new Text(
-                'Незалежний бренд аксесуарів для тих, хто сприймає життя як справжню пригоду!',
+                _about,
                 textAlign: TextAlign.center,
               ),
               onTap: () => _showModalSheet())),
@@ -142,10 +159,11 @@ class ShopPageState extends State<ShopPage> {
           child: new ListView(
             scrollDirection: Axis.horizontal,
             children: <Widget>[
-              new ShopCategoryItem('images/hipster.png', 'Категорія'),
-              new ShopCategoryItem('images/hipster.png', 'Категорія'),
-              new ShopCategoryItem('images/hipster.png', 'Категорія'),
-              new ShopCategoryItem('images/hipster.png', 'Категорія'),
+              new ShopCategoryItem('images/dad.png', 'Чоловіче'),
+              new ShopCategoryItem('images/girl_category.png', 'Жіноче'),
+              new ShopCategoryItem('images/socks_category.png', 'Шкарпетки'),
+              new ShopCategoryItem('images/good_girl.png', 'Білизна'),
+              new ShopCategoryItem('images/hat.png', 'Шапки'),
             ],
           )),
       _newShopItem("images/gus.png"),
@@ -172,14 +190,16 @@ class ShopPageState extends State<ShopPage> {
             pinned: true,
             leading: new IconButton(
               alignment: Alignment.center,
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () => Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) => new RegistrationPage())),
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () => Navigator.of(context).pushNamed("/home_page"),
             ),
             actions: <Widget>[],
             flexibleSpace: new FlexibleSpaceBar(
               title: new Text(
-                'Sammy Icon',
+                _name,
                 style: new TextStyle(fontSize: 18.0),
               ),
               centerTitle: true,
@@ -188,11 +208,12 @@ class ShopPageState extends State<ShopPage> {
                 children: <Widget>[
                   new Stack(fit: StackFit.expand, children: <Widget>[
                     new Container(
-                        padding: new EdgeInsets.only(bottom: 125.0),
-                        child: new Image.asset(
-                          'images/3.0x/box_image_3.png',
-                          fit: BoxFit.cover,
-                        ))
+                      padding: new EdgeInsets.only(bottom: 125.0),
+                      child: _coverImage, //new Image.asset(
+//                          'images/cover_semy.png',
+//                          fit: BoxFit.cover,
+//                        )
+                    )
                   ]),
                   new Stack(
                       alignment: Alignment.bottomCenter,
@@ -204,7 +225,7 @@ class ShopPageState extends State<ShopPage> {
                           decoration: new BoxDecoration(
                             color: const Color(0xff7c94b6),
                             image: new DecorationImage(
-                              image: new AssetImage('images/sammy_icon.png'),
+                              image: _logoImage.image,
                               fit: BoxFit.fill,
                             ),
                             borderRadius: new BorderRadius.all(
@@ -224,10 +245,57 @@ class ShopPageState extends State<ShopPage> {
           ),
           new SliverStaggeredGrid.count(
               crossAxisCount: 4,
-              mainAxisSpacing: 0.0,
-              crossAxisSpacing: 4.0,
+              mainAxisSpacing: 6.0,
+              crossAxisSpacing: 6.0,
               children: _shopItemList,
               staggeredTiles: _allNewStaggeredTiles(index)),
         ])));
+  }
+
+  Future _settingData() async {
+    await _gettingPreferenceData();
+
+    DocumentReference documentReference =
+        Firestore.instance.collection('shops').document(_documentID);
+    DocumentSnapshot document = await documentReference.get();
+    debugPrint(document.documentID);
+
+    //getting logo image
+    _logoImage = document["logo_url"] != null
+        ? new Image(
+            image: new CachedNetworkImageProvider(document["logo_url"]),
+            fit: BoxFit.cover,
+            height: 350.0,
+          )
+        : null;
+
+    //getting cover image
+    _coverImage = document["cover_url"] != null
+        ? new Image(
+            image: new CachedNetworkImageProvider(document["cover_url"]),
+            fit: BoxFit.cover,
+            height: 350.0,
+          )
+        : null;
+
+    setState(() {
+      _about = document["about"];
+      _name = document["name"];
+//      _productAbout = document["product_about"];
+//      _textForProduct = new Container(
+//        padding: new EdgeInsets.all(16.0),
+//        child: new Text(
+//          _productAbout,
+//          style: new TextStyle(fontSize: 13.0),
+//        ),
+//      );
+    });
+  }
+
+  Future _gettingPreferenceData() async {
+    if (_documentID == null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      _documentID = prefs.getString("shopID");
+    }
   }
 }

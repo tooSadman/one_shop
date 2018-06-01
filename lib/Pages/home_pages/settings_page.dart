@@ -34,7 +34,7 @@ padding: new EdgeInsets.only(top: 6.0),
             child: new Column(
                crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                new SettingsItem(Icons.person, "Ім'я", "Андрій Малий засранець", () =>print("") ),
+                new SettingsItem(Icons.person, "Ім'я", "Андрій", () =>print("") ),
                 new SettingsItem(Icons.create, "Про себе", "Привіт! Я продаю..", () =>print("") ),
                 new SettingsItem(Icons.email, "Пошта", "stashkiv@origami.net", () =>print("") ),
                 new SettingsItem(Icons.loyalty, "Мої категорії", "Книги, орігамі", () =>print("") ),

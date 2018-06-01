@@ -7,9 +7,7 @@ import 'package:project_f/UI/brand_box.dart';
 import 'package:project_f/UI/text_column_product_page.dart';
 
 class ProductPage extends StatefulWidget {
-
   String documentID;
-
 
   ProductPage(this.documentID);
 
@@ -23,12 +21,15 @@ class ProductPageState extends State<StatefulWidget> {
   String _logoImageUrl;
   Image _productImage;
   String _productName = "";
+  String _productPrice = "";
   static String _shopName = "";
   static String _productAbout = "";
   static String _shopAbout = "";
+  static String _shopID;
 
   String documentID;
 
+  var _brandBox;
 
   ProductPageState(this.documentID);
 
@@ -89,7 +90,7 @@ class ProductPageState extends State<StatefulWidget> {
                 new SliverList(
                     delegate: new SliverChildListDelegate(
                   <Widget>[
-                    new TextPriceTextColumn(_productName),
+                    new TextPriceTextColumn(_productName, _productPrice),
                     new Container(
                       padding: new EdgeInsets.fromLTRB(16.0, 4.0, 16.0, 16.0),
                       child: new Row(
@@ -144,7 +145,7 @@ class ProductPageState extends State<StatefulWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 new Text(
-                                  "Кількість:",
+                                  "Розмір:",
                                   style: new TextStyle(
                                     fontSize: 12.0,
                                   ),
@@ -187,7 +188,7 @@ class ProductPageState extends State<StatefulWidget> {
                     ),
                     confirmAddToCart,
                     _textForProduct,
-                    new BrandBox(_logoImageUrl, _shopAbout, _shopName)
+                    _brandBox != null ? _brandBox : new Container(),
                   ],
                 ))
               ],
@@ -225,6 +226,7 @@ class ProductPageState extends State<StatefulWidget> {
 
     setState(() {
       _productName = document["product_name"];
+      _productPrice = document["product_price"];
       _productAbout = document["product_about"];
       _textForProduct = new Container(
         padding: new EdgeInsets.all(16.0),
@@ -235,7 +237,6 @@ class ProductPageState extends State<StatefulWidget> {
       );
     });
 
-
     documentReference = document["shop"];
     document = await documentReference.get();
 
@@ -243,16 +244,14 @@ class ProductPageState extends State<StatefulWidget> {
       _logoImageUrl = document["logo_url"];
       _shopName = document["name"];
       _shopAbout = document["about"];
+      _shopID = document.documentID;
+
+      _brandBox = new BrandBox(_logoImageUrl, _shopAbout, _shopName, _shopID);
     });
-
-
-
   }
 
   @override
   void dispose() {
     super.dispose();
   }
-
-
 }

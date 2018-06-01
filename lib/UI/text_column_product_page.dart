@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 class TextPriceTextColumn extends StatelessWidget {
   String _name;
+  String _price;
 
-  TextPriceTextColumn(this._name);
+  TextPriceTextColumn(this._name, this._price);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class TextPriceTextColumn extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           new Text(
-            "60 uah",
+            _price + " uah",
             style: new TextStyle(
                 fontSize: 16.0, color: new Color.fromRGBO(0, 0, 0, 0.3)),
             textAlign: TextAlign.left,
