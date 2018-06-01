@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       ),
       home: _chooseStartingPage(),
       routes: <String, WidgetBuilder> {
-        '/shop_page': (BuildContext context) => new ShopPage(),
+        '/shop_page': (BuildContext context) => new ShopPage(null),
         '/intro_creating' : (BuildContext context) => new IntroCreatingShopPage(),
         '/instagram_integration' : (BuildContext context) => new InstagramIntegrationPage(),
         '/add_images' : (BuildContext context) => new AddingInfoPage(),

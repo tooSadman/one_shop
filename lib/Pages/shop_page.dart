@@ -15,8 +15,12 @@ import './registration_page.dart';
 enum AppBarBehavior { normal, pinned, floating, snapping }
 
 class ShopPage extends StatefulWidget {
+  String _documentID;
+
+  ShopPage(this._documentID);
+
   @override
-  State createState() => new ShopPageState();
+  State createState() => new ShopPageState(_documentID);
 }
 
 class ShopPageState extends State<ShopPage> {
@@ -41,6 +45,8 @@ class ShopPageState extends State<ShopPage> {
   String _about = "";
 
   String _name = "";
+
+  ShopPageState(this._documentID);
 
   @override
   void initState() {
@@ -287,7 +293,9 @@ class ShopPageState extends State<ShopPage> {
   }
 
   Future _gettingPreferenceData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _documentID = prefs.getString("shopID");
+    if (_documentID == null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      _documentID = prefs.getString("shopID");
+    }
   }
 }
