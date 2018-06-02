@@ -133,6 +133,8 @@ class AddingProductPageState extends State<AddingProductPage> {
                     'product_name' : _name.text,
                     'product_price' : _price.text,
                     'product_about': _about.text,
+                    'image_list_height': 2,
+                    'image_list_width': 2,
                     'photo_url': _downloadUrl.toString(),
                     'shop': Firestore.instance.document("/shops/" + shopID)
                   });

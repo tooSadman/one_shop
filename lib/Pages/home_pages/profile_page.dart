@@ -42,7 +42,7 @@ class ProfilePageState extends State<ProfilePage> {
       return new Material(
         child: new Center(
           child: new CircularProgressIndicator(
-
+              strokeWidth: 15.0
           ),
         ),
       );
@@ -177,6 +177,7 @@ class ProfilePageState extends State<ProfilePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _shopIsCreated = prefs.get("shop_is_created");
+      debugPrint(_shopIsCreated.toString());
       _dynamicString = _shopIsCreated ? "ПЕРЕЙТИ В МАГАЗИН" : "СТВОРИТИ МАГАЗИН";
     });
     _isLoading = false;

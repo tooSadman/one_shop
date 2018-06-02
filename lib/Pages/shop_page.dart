@@ -177,7 +177,7 @@ class ShopPageState extends State<ShopPage> {
         child: _isLoading ?
             new Material(
               child: new Center(
-                child: new CircularProgressIndicator(),
+                child: new CircularProgressIndicator(strokeWidth: 15.0),
               ),
             )
             : new Scaffold(

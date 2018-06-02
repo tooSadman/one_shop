@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -20,6 +21,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<StatefulWidget> {
+  //reference to users in database
+  CollectionReference get users => Firestore.instance.collection('users');
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -232,9 +236,30 @@ class LoginPageState extends State<StatefulWidget> {
 
   Future _settingPreferenceData(FirebaseUser user) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    DocumentReference databaseUser = users.document(user.uid);
+    DocumentSnapshot userData = await databaseUser.get();
+    bool _shopIsCreated = false;
+
+    if (userData.data != null) {
+      _shopIsCreated = userData["shop_is_created"];
+
+      if(_shopIsCreated) {
+        DocumentReference shopReference = userData["shop_reference"];
+        prefs.setString("shopID", shopReference.documentID);
+      }
+    }
+
+    //setting offline preferences
     prefs.setString("name", user.displayName);
     prefs.setString("photo_url", user.photoUrl);
     prefs.setString("email", user.email);
-    prefs.setBool("shop_is_created", false);
+    prefs.setBool("shop_is_created", _shopIsCreated);
+
+    databaseUser.setData(<String, dynamic>{
+      'name': user.displayName,
+      'photo_url': user.photoUrl,
+      'email': user.email,
+      'shop_is_created': false,
+    });
   }
 }
