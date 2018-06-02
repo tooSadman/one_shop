@@ -69,7 +69,7 @@ class BoxesPageState extends State<BoxesPage> {
                     new BoxWidget('images/box_image_1.png'),
                     new BoxWidget('images/box_image_2.png'),
                     new BoxWidget('images/box_image_3.png'),
-                    new BoxWidget('images/login.png'),
+                    new BoxWidget(null),
                   ],
                 ),
               ),

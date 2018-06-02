@@ -46,22 +46,14 @@ class ShopPageState extends State<ShopPage> {
 
   String _name = "";
 
+  bool _isLoading = true;
+
   ShopPageState(this._documentID);
 
   @override
   void initState() {
     super.initState();
     _settingData();
-  }
-
-  void changeNotificationStatus(bool status) {
-    status == true
-        ? this.setState(() {
-            _notification = false;
-          })
-        : this.setState(() {
-            _notification = true;
-          }); // if clause
   }
 
   void _showModalSheet() {
@@ -182,7 +174,13 @@ class ShopPageState extends State<ShopPage> {
           primaryColor: Colors.white,
           platform: Theme.of(context).platform,
         ),
-        child: new Scaffold(
+        child: _isLoading ?
+            new Material(
+              child: new Center(
+                child: new CircularProgressIndicator(strokeWidth: 15.0),
+              ),
+            )
+            : new Scaffold(
             //    key: _scaffoldKey,
             body: new CustomScrollView(slivers: <Widget>[
           new SliverAppBar(
@@ -281,6 +279,7 @@ class ShopPageState extends State<ShopPage> {
     setState(() {
       _about = document["about"];
       _name = document["name"];
+      _isLoading = false;
 //      _productAbout = document["product_about"];
 //      _textForProduct = new Container(
 //        padding: new EdgeInsets.all(16.0),

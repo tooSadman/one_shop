@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project_f/Pages/creating_shop_intro/succesfully_added.dart';
 import 'package:project_f/UI/titled_text_in_shop_creating.dart';
+import 'package:project_f/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddingInfoPage extends StatefulWidget {
@@ -19,7 +20,6 @@ class AddingInfoPage extends StatefulWidget {
 }
 
 class AddingInfoPageState extends State<AddingInfoPage> {
-  String _currentUserID = "I9v7sS6mhoZEL5id56mo56iEMM53";
 
   Image _coverImage;
   Image _logoImage;
@@ -171,12 +171,16 @@ class AddingInfoPageState extends State<AddingInfoPage> {
                     'about': "Bla, bla, bla....",
                   });
 
+                  //getting user id in database
+                  firebaseUser = await auth.currentUser();
+                  var _currentUserID = firebaseUser.uid;
+
                   Firestore.instance
                       .collection('users')
                       .document(_currentUserID)
                       .updateData(
                         <String, dynamic>{
-                          'shop_ref': document.documentID,
+                          'shop_reference': document,
                         }
                   );
 

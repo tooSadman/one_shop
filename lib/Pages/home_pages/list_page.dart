@@ -77,7 +77,7 @@ class ListPageState extends State<StatefulWidget> {
                       padding: new EdgeInsets.all(8.0),
                       staggeredTiles: snapshot.data.documents
                           .map((DocumentSnapshot document) {
-                        return new StaggeredTile.count(2, 2);
+                        return new StaggeredTile.count(document["image_list_width"], document["image_list_height"]);
                       }).toList(),
 
 //        staggeredTileBuilder: (int index) =>
