@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:core';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:project_f/Pages/product_page.dart';
 
 import 'package:project_f/UI/shop_page_category_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -136,15 +137,15 @@ class ShopPageState extends State<ShopPage> {
   Widget build(BuildContext context) {
     // adding initial products to list here
     _shopItemList.addAll([
-      new Container(
-          color: Colors.white,
-          padding: new EdgeInsets.symmetric(horizontal: 30.0),
-          child: new InkWell(
-              child: new Text(
-                _about,
-                textAlign: TextAlign.center,
-              ),
-              onTap: () => _showModalSheet())),
+//      new Container(
+//          color: Colors.white,
+//          padding: new EdgeInsets.symmetric(horizontal: 30.0),
+//          child: new InkWell(
+//              child: new Text(
+//                _about,
+//                textAlign: TextAlign.center,
+//              ),
+//              onTap: () => _showModalSheet())),
       // Categories
       new SizedBox(
           height: 130.0,
@@ -158,12 +159,6 @@ class ShopPageState extends State<ShopPage> {
               new ShopCategoryItem('images/hat.png', 'Шапки'),
             ],
           )),
-      _newShopItem("images/gus.png"),
-      _newShopItem("images/socks.png"),
-      _newShopItem("images/sence.png"),
-      _newShopItem("images/box_image_1.png"),
-      _newShopItem("images/girl.png"),
-      _newShopItem("images/box_image_2.png"),
     ]);
 
     index = _shopItemList.length;
@@ -174,80 +169,127 @@ class ShopPageState extends State<ShopPage> {
           primaryColor: Colors.white,
           platform: Theme.of(context).platform,
         ),
-        child: _isLoading ?
-            new Material(
-              child: new Center(
-                child: new CircularProgressIndicator(strokeWidth: 15.0),
-              ),
-            )
+        child: _isLoading
+            ? new Material(
+                child: new Center(
+                  child: new CircularProgressIndicator(strokeWidth: 15.0),
+                ),
+              )
             : new Scaffold(
-            //    key: _scaffoldKey,
-            body: new CustomScrollView(slivers: <Widget>[
-          new SliverAppBar(
-            expandedHeight: 300.0,
-            pinned: true,
-            leading: new IconButton(
-              alignment: Alignment.center,
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () => Navigator.of(context).pushNamed("/home_page"),
-            ),
-            actions: <Widget>[],
-            flexibleSpace: new FlexibleSpaceBar(
-              title: new Text(
-                _name,
-                style: new TextStyle(fontSize: 18.0),
-              ),
-              centerTitle: true,
-              background: new Stack(
-                fit: StackFit.passthrough,
-                children: <Widget>[
-                  new Stack(fit: StackFit.expand, children: <Widget>[
-                    new Container(
-                      padding: new EdgeInsets.only(bottom: 125.0),
-                      child: _coverImage, //new Image.asset(
-//                          'images/cover_semy.png',
-//                          fit: BoxFit.cover,
-//                        )
-                    )
-                  ]),
-                  new Stack(
-                      alignment: Alignment.bottomCenter,
+                //    key: _scaffoldKey,
+                body: new CustomScrollView(slivers: <Widget>[
+                new SliverAppBar(
+                  expandedHeight: 300.0,
+                  pinned: true,
+                  leading: new IconButton(
+                    alignment: Alignment.center,
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ),
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed("/home_page"),
+                  ),
+                  actions: <Widget>[],
+                  flexibleSpace: new FlexibleSpaceBar(
+                    title: new Text(
+                      _name,
+                      style: new TextStyle(fontSize: 18.0),
+                    ),
+                    centerTitle: true,
+                    background: new Stack(
+                      fit: StackFit.passthrough,
                       children: <Widget>[
-                        new Container(
-                          margin: new EdgeInsets.only(bottom: 55.0),
-                          height: 150.0,
-                          width: 150.0,
-                          decoration: new BoxDecoration(
-                            color: const Color(0xff7c94b6),
-                            image: new DecorationImage(
-                              image: _logoImage.image,
-                              fit: BoxFit.fill,
-                            ),
-                            borderRadius: new BorderRadius.all(
-                                new Radius.circular(100.0)),
-                            border: new Border.all(
-                              color: Colors.white,
-                              width: 5.0,
-                            ),
-                          ),
-                        ),
-                      ])
-                  // This gradient ensures that the toolbar icons are distinct
-                  // against the background image.
-                ],
-              ),
-            ),
-          ),
-          new SliverStaggeredGrid.count(
-              crossAxisCount: 4,
-              mainAxisSpacing: 6.0,
-              crossAxisSpacing: 6.0,
-              children: _shopItemList,
-              staggeredTiles: _allNewStaggeredTiles(index)),
-        ])));
+                        new Stack(fit: StackFit.expand, children: <Widget>[
+                          new Container(
+                            padding: new EdgeInsets.only(bottom: 125.0),
+                            child: _coverImage,
+                          )
+                        ]),
+                        new Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: <Widget>[
+                              new Container(
+                                margin: new EdgeInsets.only(bottom: 55.0),
+                                height: 150.0,
+                                width: 150.0,
+                                decoration: new BoxDecoration(
+                                  color: const Color(0xff7c94b6),
+                                  image: new DecorationImage(
+                                    image: _logoImage.image,
+                                    fit: BoxFit.fill,
+                                  ),
+                                  borderRadius: new BorderRadius.all(
+                                      new Radius.circular(100.0)),
+                                  border: new Border.all(
+                                    color: Colors.white,
+                                    width: 5.0,
+                                  ),
+                                ),
+                              ),
+                            ])
+                        // This gradient ensures that the toolbar icons are distinct
+                        // against the background image.
+                      ],
+                    ),
+                  ),
+                ),
+                new SliverList(
+                    delegate: new SliverChildListDelegate(_shopItemList)),
+//                new SliverStaggeredGrid.count(
+//                    crossAxisCount: 4,
+//                    mainAxisSpacing: 6.0,
+//                    crossAxisSpacing: 6.0,
+//                    children: _shopItemList,
+//                    staggeredTiles: _allNewStaggeredTiles(index)),
+                new SliverPadding(
+                    padding: new EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 4.0),
+                    sliver: new StreamBuilder<QuerySnapshot>(
+                        stream:
+                            Firestore.instance.collection('goods').snapshots,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (!snapshot.hasData)
+                            return new SliverPadding(
+                                padding: new EdgeInsets.all(0.0));
+                          return new SliverStaggeredGrid.count(
+                            crossAxisCount: 4,
+                            staggeredTiles: snapshot.data.documents
+                                .map((DocumentSnapshot document) {
+                              return new StaggeredTile.count(
+                                  document["image_list_width"],
+                                  document["image_list_height"]);
+                            }).toList(),
+                            mainAxisSpacing: 8.0,
+                            crossAxisSpacing: 8.0,
+                            children: snapshot.data.documents
+                                .map((DocumentSnapshot document) {
+                              return new GestureDetector(
+                                child: new Container(
+                                  decoration: new BoxDecoration(
+                                      borderRadius: new BorderRadius.all(
+                                          new Radius.circular(10.0)),
+                                      border: new Border.all(
+                                          color: new Color.fromRGBO(
+                                              149, 152, 154, 0.15),
+                                          width: 2.0),
+                                      image: new DecorationImage(
+                                        image: new CachedNetworkImageProvider(
+                                            document['photo_url']),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      color: Colors.white),
+                                ),
+                                onTap: () => Navigator.of(context).push(
+                                    new MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            new ProductPage(
+                                                document.documentID))),
+                              );
+                            }).toList(),
+                          );
+                        }))
+              ])));
   }
 
   Future _settingData() async {

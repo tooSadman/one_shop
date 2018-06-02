@@ -108,7 +108,8 @@ class ListPageState extends State<StatefulWidget> {
                         );
                       }).toList(),
                     );
-                  }))),
+                  }))
+      ),
     ]);
   }
 }
