@@ -65,6 +65,7 @@ class ProductPageState extends State<StatefulWidget> {
                 slivers: <Widget>[
                   new SliverAppBar(
                     expandedHeight: 350.0,
+                    brightness: Brightness.dark,
                     pinned: true,
                     actions: <Widget>[
                       new IconButton(

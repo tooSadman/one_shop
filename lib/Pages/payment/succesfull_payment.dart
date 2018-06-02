@@ -23,16 +23,17 @@ class SuccessfullyPaymentPage extends StatelessWidget {
             ),
             alignment: Alignment.center,
           ),
-          new TitledTextInShopCreating("Твій магазин створено!",
-              "Залишилось лише додати товари, поділити їх по категоріях та поділиитись посиланням на магазин з клієнтами."),
+          new TitledTextInShopCreating("УСПІШНО!",
+              "Вітаємо! Платіж пройшов успішно, найближчим часом з вами зв'яжеться представник магазину!"),
           new Padding(
             padding: new EdgeInsets.only(top: 64.0),
             child: new CupertinoButton(
               child: new Text(
-                "ПЕРЕЙТИ В МАГАЗИН",
+                "ПЕРЕЙТИ НА ГОЛОВНУ",
                 style: new TextStyle(
                   fontSize: 13.0,
                   fontWeight: FontWeight.bold,
+                  color: Colors.white
                 ),
               ),
               padding: new EdgeInsets.fromLTRB(100.0, 16.0, 100.0, 16.0),
@@ -40,9 +41,9 @@ class SuccessfullyPaymentPage extends StatelessWidget {
                 while(Navigator.of(context).canPop()) {
                   Navigator.of(context).pop();
                 }
-                return Navigator.of(context).pushNamed("/shop_page");
+                return Navigator.of(context).pushNamed("/home_page");
               },
-              color: Colors.black,
+              color: new Color.fromRGBO(10, 199, 117, 1.0),
               pressedOpacity: 0.5,
               borderRadius: new BorderRadius.circular(4.0),
             ),

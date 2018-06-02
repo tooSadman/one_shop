@@ -121,7 +121,7 @@ class OrderPageState extends State<OrderPage> {
             height: 50.0,
             color: Colors.black,
             onPressed: () {
-              return Navigator.of(context).pushNamed('/successfully_added');
+              return Navigator.of(context).pushNamed('/successfully');
             },
             child: new Text(
               "ПРОДОВЖИТИ",

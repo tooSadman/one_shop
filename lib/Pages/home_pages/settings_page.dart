@@ -34,13 +34,14 @@ padding: new EdgeInsets.only(top: 6.0),
             child: new Column(
                crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                new SettingsItem(Icons.person, "Ім'я", "Андрій", () =>print("") ),
+                new SettingsItem(Icons.add_box, "Додати товар", "натисни щоб перейти", () => Navigator.of(context).pushNamed("/adding_product") ),
+                new SettingsItem(Icons.person, "Ім'я", "Нікіта", () =>print("") ),
                 new SettingsItem(Icons.create, "Про себе", "Привіт! Я продаю..", () =>print("") ),
-                new SettingsItem(Icons.email, "Пошта", "stashkiv@origami.net", () =>print("") ),
+                new SettingsItem(Icons.email, "Пошта", "no_blockchain@kinivi.net", () =>print("") ),
                 new SettingsItem(Icons.loyalty, "Мої категорії", "Книги, орігамі", () =>print("") ),
                 new SettingsItem(_notification == true ? Icons.notifications_active : Icons.notifications_off, "Сповіщення", _notification == true ?"Увімкнено" : "Вимкнено", () => changeNotificationStatus(_notification)),
-                new SettingsItem(Icons.help, "Допомога", "Маєш питання", () => Navigator.of(context).pushNamed("/adding_product") ),
-                new SettingsItem(Icons.info, "Про проект", "ver. 0.3.1", () =>print("") ),
+                new SettingsItem(Icons.help, "Допомога", "Маєш питання", () {} ),
+                new SettingsItem(Icons.info, "Про проект", "ver. 0.5.1", () =>print("") ),
                 new SettingsItem(Icons.format_quote, "Умови та конфіденційність", "", () =>print("") ),
               ],
             ));

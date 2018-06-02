@@ -90,9 +90,9 @@ class AddingProductPageState extends State<AddingProductPage> {
               ),
               new OrderItem("Короткий опис", TextInputType.text, textController: _about,),
               new OrderItem("Ціна в гривнях", TextInputType.number, textController: _price,),
-              new OrderItem("#Теги", TextInputType.text),
+              //new OrderItem("#Теги", TextInputType.text),
               new OrderItem("Розміри (не обов'язково)", TextInputType.text),
-              new OrderItem("Кольори (не обов'язково)", TextInputType.text),
+              //new OrderItem("Кольори (не обов'язково)", TextInputType.text),
               new Container(
                   padding: new EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 16.0),
                   child: _productImage),
