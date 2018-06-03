@@ -30,8 +30,8 @@ class ShopPageState extends State<ShopPage> {
 
   var _shopItemList = new List<Widget>();
 
-  HashMap<int, String> map = new HashMap<int, String>();
-  int index = 0;
+//  HashMap<int, String> map = new HashMap<int, String>();
+//  int index = 0;
 
   bool _notification = false;
   String _documentID;
@@ -147,21 +147,16 @@ class ShopPageState extends State<ShopPage> {
 //              ),
 //              onTap: () => _showModalSheet())),
       // Categories
-      new SizedBox(
-          height: 130.0,
-          child: new ListView(
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              new ShopCategoryItem('images/dad.png', 'Чоловіче'),
-              new ShopCategoryItem('images/girl_category.png', 'Жіноче'),
-              new ShopCategoryItem('images/socks_category.png', 'Шкарпетки'),
-              new ShopCategoryItem('images/good_girl.png', 'Білизна'),
-              new ShopCategoryItem('images/hat.png', 'Шапки'),
-            ],
-          )),
+      new Row(
+        children: <Widget>[
+          new ShopCategoryItem('images/dad.png', 'Чоловіче'),
+          new ShopCategoryItem('images/girl_category.png', 'Жіноче'),
+          new ShopCategoryItem('images/socks_category.png', 'Шкарпетки'),
+          new ShopCategoryItem('images/good_girl.png', 'Білизна'),
+          new ShopCategoryItem('images/hat.png', 'Шапки'),
+        ],
+      )
     ]);
-
-    index = _shopItemList.length;
 
     return new Theme(
         data: new ThemeData(
@@ -227,21 +222,41 @@ class ShopPageState extends State<ShopPage> {
                                   ),
                                 ),
                               ),
-                            ])
+                            ]),
+
                         // This gradient ensures that the toolbar icons are distinct
                         // against the background image.
                       ],
                     ),
                   ),
                 ),
-                new SliverList(
-                    delegate: new SliverChildListDelegate(_shopItemList)),
+//                new SliverFixedExtentList(
+//                  delegate: new SliverChildListDelegate(_shopItemList),
+//                  itemExtent: 200.0,
+//                ),
 //                new SliverStaggeredGrid.count(
 //                    crossAxisCount: 4,
 //                    mainAxisSpacing: 6.0,
 //                    crossAxisSpacing: 6.0,
 //                    children: _shopItemList,
 //                    staggeredTiles: _allNewStaggeredTiles(index)),
+                new SliverPadding(
+                  padding: new EdgeInsets.all(0.0),
+                  sliver: new SliverGrid.count(crossAxisCount: 1,
+                  childAspectRatio: 3.0,
+                  children: <Widget>[
+                    new ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[
+                        new ShopCategoryItem('images/dad.png', 'Чоловіче'),
+                        new ShopCategoryItem('images/girl_category.png', 'Жіноче'),
+                        new ShopCategoryItem('images/socks_category.png', 'Шкарпетки'),
+                        new ShopCategoryItem('images/good_girl.png', 'Білизна'),
+                        new ShopCategoryItem('images/hat.png', 'Шапки'),
+                      ],
+                    )
+                  ],)
+                ),
                 new SliverPadding(
                     padding: new EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 4.0),
                     sliver: new StreamBuilder<QuerySnapshot>(

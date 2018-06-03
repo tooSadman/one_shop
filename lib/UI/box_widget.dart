@@ -6,14 +6,16 @@ import 'package:flutter/material.dart';
 
 class BoxWidget extends StatelessWidget {
   String _asset_image;
+  String _name;
 
-  BoxWidget(this._asset_image);
+  BoxWidget(this._asset_image, this._name);
 
   @override
   Widget build(BuildContext context) {
     final Widget image = new GestureDetector(
+      onTap: () {Navigator.of(context).pushNamed('/category_girl');},
         child: new Hero(
-            tag: "tag",
+            tag: "tag" + _name,
             child: (_asset_image == null)
                 ? new Container(
                     color: Colors.white,
@@ -30,8 +32,9 @@ class BoxWidget extends StatelessWidget {
             ? new Container()
             : new GridTileBar(
                 backgroundColor: Colors.black87,
-                title: new Text("Box"),
+                title: new Text(_name),
               ),
+        onTap: () {Navigator.of(context).pushNamed('/category_girl');},
       ),
       child: image,
     );

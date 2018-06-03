@@ -83,7 +83,7 @@ class ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       new Text(
-                        "Привіт! Мене звати Павло Зібров і я вмію співати, танцювати і зваблювати жінок!",
+                        "Привіт! Мене звати Нікіта Кісельов і я розробник ONE:SHOP ^_^",
                         style: new TextStyle(
                           fontSize: 14.0,
                         ),
