@@ -30,8 +30,8 @@ class ShopPageState extends State<ShopPage> {
 
   var _shopItemList = new List<Widget>();
 
- 
-  int index;
+  HashMap<int, String> map = new HashMap<int, String>();
+  int index = 0;
 
   bool _notification = false;
   String _documentID;
