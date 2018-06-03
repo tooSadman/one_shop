@@ -56,6 +56,14 @@ flutter:
       - images/socks_category.png
       - images/samy_ico.png
       - images/cover_semy.png
+      - images/gel.png
+      - images/category_girl/big_girl.png
+      - images/category_girl/colord_socks.png
+      - images/category_girl/high_girl.png
+      - images/category_girl/coffe_girl.png
+      - images/category_girl/chair_girl.png
+      - images/category_girl/another_girl.png
+      - images/category_girl/good_socks.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

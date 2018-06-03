@@ -8,6 +8,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_f/Pages/home_page.dart';
 import 'package:project_f/Pages/product_page.dart';
+import 'package:project_f/UI/grid_item.dart';
 import 'package:project_f/main.dart';
 
 ///
@@ -86,26 +87,7 @@ class ListPageState extends State<StatefulWidget> {
                       crossAxisSpacing: 8.0,
                       children: snapshot.data.documents
                           .map((DocumentSnapshot document) {
-                        return new GestureDetector(
-                          child: new Container(
-                            decoration: new BoxDecoration(
-                                borderRadius: new BorderRadius.all(
-                                    new Radius.circular(10.0)),
-                                border: new Border.all(
-                                    color:
-                                        new Color.fromRGBO(149, 152, 154, 0.15),
-                                    width: 2.0),
-                                image: new DecorationImage(
-                                  image:  new CachedNetworkImageProvider(document['photo_url']),
-                                  fit: BoxFit.cover,
-                                ),
-                                color: Colors.white),
-                          ),
-                          onTap: () => Navigator.of(context).push(
-                              new MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      new ProductPage(document.documentID))),
-                        );
+                        return new GridItem(document["photo_url"], document.documentID);
                       }).toList(),
                     );
                   }))

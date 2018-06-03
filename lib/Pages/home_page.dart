@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:project_f/UI/blank_search_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -96,6 +97,7 @@ class NavigationIconView {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   static ListPage _list_page = new ListPage();
+  static BlankSearchPage _search_page = new BlankSearchPage();
   static CartPage _cart_page = new CartPage();
   static BoxesPage _boxes_page = new BoxesPage();
   static ProfilePage _profile_page = new ProfilePage(
@@ -177,6 +179,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           switch (index) {
             case 0:
               _homeWidget = _list_page;
+              break;
+            case 1:
+              _homeWidget = _search_page;
               break;
             case 2:
               _homeWidget = _cart_page;

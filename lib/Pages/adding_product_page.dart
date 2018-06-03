@@ -6,6 +6,7 @@ import 'package:project_f/UI/settings_item.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_f/main.dart';
 
 import 'dart:math';
 import 'dart:io';
@@ -139,6 +140,14 @@ class AddingProductPageState extends State<AddingProductPage> {
                     'shop': Firestore.instance.document("/shops/" + shopID)
                   });
 
+                  CollectionReference shopListReference = Firestore.instance.collection('/shops/' + shopID + "/products");
+                  shopListReference.add(<String, dynamic>{
+                    'product_name' : _name.text,
+                    'product_price' : _price.text,
+                    'product_about': _about.text,
+                    'image_list_height': 2,
+                    'image_list_width': 2,
+                  });
                   Navigator.of(context).pop();
 
                 },

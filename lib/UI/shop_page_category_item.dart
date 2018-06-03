@@ -11,7 +11,7 @@ class ShopCategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new GestureDetector(
-        onTap: () {},
+        onTap: () {Navigator.of(context).pushNamed('/category_girl');},
         child: new Container(
           color: Colors.white,
           padding: new EdgeInsets.fromLTRB(6.0, 15.0, 6.0, 5.0),
